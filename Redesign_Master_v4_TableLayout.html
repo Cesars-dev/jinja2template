@@ -17,6 +17,13 @@
     <meta charset="UTF-8">
     <title>Sugar Pixels SiteScan™ Report</title>
     <style>
+        /* ==================== V5 SIMPLIFIED: GLOBAL DARK MODE ==================== */
+        body {
+            background: #0D0D0D;
+            margin: 0;
+            padding: 0;
+        }
+
         /* ==================== RESET & BASE ==================== */
         html,
         body {
@@ -145,13 +152,14 @@
             min-height: 11in;
             background: #0D0D0D;
             color: var(--color-text-main);
-            /* REMOVED: page-break-after: always - causes blank pages from 1px overflow */
-            /* REMOVED: page-break-inside: avoid - causes aggressive pagination */
+            page-break-before: always;  /* V5: Force each page to start fresh */
+            
+            
             position: relative;
             margin: 0 auto 20px auto;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
             padding: 0;
-            /* Keep at 0 to maintain 11in total height */
+            
         }
 
         .content-container {
@@ -774,12 +782,28 @@
             color: #CCFBF1;
         }
 
-        /* ==================== PAGINATION CONTROLS - SOFTENED ==================== */
-        /* REMOVED: Most page-break-inside: avoid rules - too aggressive for APITemplate.io */
-
+        /* ==================== V5 SIMPLIFIED: SMART BREAK CONTROLS ==================== */
         h2,
         h3 {
             page-break-after: avoid;
+            /* Prevent orphan headers */
+        }
+
+        /* Allow long tables to break naturally */
+        .modern-table {
+            page-break-inside: auto;
+        }
+
+        /* Keep small cards together */
+        .card-bordered,
+        .score-card,
+        .highlight-box {
+            page-break-inside: avoid;
+        }
+
+        /* Keep stat callouts together */
+        .stat-callout {
+            page-break-inside: avoid;
         }
 
         /* ==================== PRINT STYLES ==================== */
