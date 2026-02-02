@@ -1,4 +1,4 @@
-{# QUICK FIX VERSION - APITemplate.io Compatible #}
+{# TIGHT SPACING VERSION - For APITemplate.io - Prevents Orphan Pages #}
 
 {% if data is defined and data is iterable and data is not string and data is not mapping %}
 {% set report = data[0] %}
@@ -7,534 +7,482 @@
 {% endif %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
-    <title>Sugar Pixels SiteScan™ Report</title>
+    <title>SiteScan Report</title>
     <style>
-        /* QUICK FIX: APITemplate.io Compatible CSS */
+        /* ULTRA-TIGHT SPACING FOR APITEMPLATE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         html,
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: Arial, sans-serif;
             color: #E5E7EB;
-            background-color: #111111;
+            background: #111;
             -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-
-        * {
-            box-sizing: border-box;
         }
 
         /* COLORS */
         :root {
-            --color-primary: #2DD4BF;
-            --color-accent: #F472B6;
-            --color-text-main: #F3F4F6;
-            --color-text-muted: #9CA3AF;
-            --bg-card: #0A0A0A;
-            --bg-highlight: #171717;
-            --border-color: #333333;
-            --color-critical: #F87171;
-            --color-warning: #FBBF24;
-            --color-good: #60A5FA;
-            --color-excellent: #34D399;
-            --bg-critical: #450a0a;
-            --bg-warning: #451a03;
+            --primary: #2DD4BF;
+            --accent: #F472B6;
+            --card-bg: #0A0A0A;
+            --border: #333;
+            --critical: #F87171;
+            --warning: #FBBF24;
+            --good: #60A5FA;
+            --excellent: #34D399;
         }
 
-        /* PAGE LAYOUT - FIXED FOR APITEMPLATE */
+        /* PAGE - TIGHT */
         .page {
             width: 8.5in;
-            min-height: 10.5in;
-            /* CHANGED from 11in */
+            min-height: 10in;
             background: #0D0D0D;
-            color: var(--color-text-main);
+            padding: 30px 40px;
+            /* REDUCED from 50px */
             page-break-after: always;
-            /* REMOVED page-break-inside: avoid - causes issues */
-            position: relative;
-            padding: 0;
         }
 
-        .content-container {
-            padding: 0 50px 60px 50px;
-            /* INCREASED bottom padding */
-        }
-
-        /* COVER PAGE - SIMPLIFIED */
-        .cover-page {
-            position: relative;
-            min-height: 10.5in;
+        /* COVER */
+        .cover {
+            min-height: 10in;
             background: #000;
-            padding: 60px 50px;
+            padding: 40px;
+            position: relative;
         }
 
-        .cover-bg-shape {
+        .cover-bg {
             position: absolute;
             top: 0;
             right: 0;
-            width: 60%;
-            /* REDUCED from 70% */
+            width: 50%;
             height: 100%;
-            background-color: #1a1a1a;
-            /* SIMPLIFIED - no clip-path */
-            z-index: 1;
+            background: #1a1a1a;
         }
 
         .cover-content {
             position: relative;
             z-index: 10;
-            width: 55%;
         }
 
-        .cover-logo {
-            margin-bottom: 180px;
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 120px;
         }
 
-        .cover-title-group {
-            margin-bottom: 150px;
+        .logo span {
+            color: var(--accent);
         }
 
-        .cover-footer-info {
-            position: absolute;
-            bottom: 60px;
-            right: 40px;
-            width: 350px;
-            color: #FFFFFF;
-            text-align: right;
-            z-index: 20;
-        }
-
-        /* HEADER BANNER - SIMPLIFIED */
-        .header-banner {
-            height: 140px;
-            /* REDUCED from 180px */
-            width: 100%;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            margin-bottom: 30px;
-            /* REMOVED clip-path - causes black pages */
-        }
-
-        /* TYPOGRAPHY */
         h1.cover-title {
-            font-size: 64px;
-            line-height: 1.05;
+            font-size: 56px;
             font-weight: 800;
-            color: #FFFFFF;
-            margin: 0;
+            color: #FFF;
+            line-height: 1.1;
+            margin-bottom: 100px;
         }
 
-        h1.internal-title {
-            font-size: 38px;
+        .cover-info {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            color: #FFF;
+            text-align: right;
+        }
+
+        .cover-info div {
+            margin-bottom: 20px;
+        }
+
+        .cover-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            opacity: 0.7;
+        }
+
+        .cover-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .cover-score {
+            font-size: 48px;
             font-weight: 800;
-            color: #FFFFFF;
-            margin: 0;
-            line-height: 1.2;
+            color: var(--accent);
+        }
+
+        /* HEADER - MINIMAL */
+        .header {
+            height: 80px;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            margin: -30px -40px 20px -40px;
+            /* Negative margin to extend to edges */
+        }
+
+        /* TYPOGRAPHY - TIGHT */
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #FFF;
+            margin: 0 0 15px 0;
+            /* REDUCED */
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
         }
 
         h2 {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--color-primary);
-            margin: 0 0 20px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            /* REDUCED */
             text-transform: uppercase;
-            page-break-after: avoid;
         }
 
         h3 {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
-            color: #FFFFFF;
-            margin: 0 0 12px 0;
-            page-break-after: avoid;
+            color: #FFF;
+            margin: 0 0 8px 0;
+            /* REDUCED */
         }
 
         p {
-            font-size: 15px;
-            line-height: 1.7;
-            color: var(--color-text-muted);
-            margin-bottom: 16px;
+            font-size: 13px;
+            /* REDUCED */
+            line-height: 1.5;
+            /* REDUCED */
+            color: #9CA3AF;
+            margin-bottom: 10px;
+            /* REDUCED */
         }
 
-        .page-title-block {
-            margin-top: 0;
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
+        /* SECTIONS - TIGHT */
+        .section {
+            margin-bottom: 20px;
+            /* REDUCED from 30-40px */
         }
 
-        /* EXECUTIVE SUMMARY - SIMPLIFIED GRID TO TABLE */
-        .exec-hero {
-            width: 100%;
-            margin-bottom: 40px;
+        /* CARDS - TIGHT */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 15px;
+            /* REDUCED from 24px */
+            margin-bottom: 15px;
+            /* REDUCED */
         }
 
-        .exec-hero table {
+        .card-highlight {
+            background: #171717;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* TWO COLUMN - TABLE BASED */
+        .two-col {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .exec-hero td {
+        .two-col td {
+            width: 48%;
             vertical-align: top;
             padding: 10px;
         }
 
-        .score-showcase {
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-            background: var(--bg-card);
-        }
-
-        .score-grid {
-            width: 100%;
-        }
-
-        .score-grid table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .score-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 16px;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        /* CARDS */
-        .card-bordered {
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            border-radius: 4px;
-            background: var(--bg-card);
-            margin-bottom: 24px;
-            page-break-inside: avoid;
-        }
-
-        .highlight-box {
-            background-color: var(--bg-highlight);
-            color: white;
-            padding: 30px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            page-break-inside: avoid;
-        }
-
-        /* SPLIT ASSESSMENT - CHANGED FROM TABLE TO DIV */
-        .split-assessment {
-            width: 100%;
-            margin: 20px 0;
-        }
-
-        .split-assessment table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .assessment-col {
-            width: 48%;
-            padding: 16px;
-            border-radius: 8px;
-            vertical-align: top;
-        }
-
-        .assessment-col--strengths {
+        .col-box {
             background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid var(--color-excellent);
+            border-left: 4px solid var(--excellent);
+            padding: 12px;
+            border-radius: 4px;
         }
 
-        .assessment-col--weaknesses {
+        .col-box.weak {
             background: rgba(239, 68, 68, 0.1);
-            border-left: 4px solid var(--color-critical);
+            border-left-color: var(--critical);
         }
 
-        .assessment-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* LIST - TIGHT */
+        .item {
+            padding: 8px 0;
+            /* REDUCED */
+            border-bottom: 1px solid var(--border);
         }
 
-        .assessment-item:last-child {
+        .item:last-child {
             border-bottom: none;
         }
 
-        /* TABLES */
-        .modern-table {
+        .icon {
+            display: inline-block;
+            width: 20px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* TABLE - COMPACT */
+        table.data {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
-            margin: 20px 0;
+            font-size: 12px;
+            margin: 15px 0;
         }
 
-        .modern-table th {
+        table.data th {
             text-align: left;
-            padding: 12px 0;
-            border-bottom: 2px solid var(--border-color);
+            padding: 8px 0;
+            border-bottom: 2px solid var(--border);
             color: #D1D5DB;
-            font-weight: 700;
+            font-size: 10px;
             text-transform: uppercase;
-            font-size: 11px;
         }
 
-        .modern-table td {
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--color-text-main);
+        table.data td {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            color: #E5E7EB;
         }
 
         /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
         .badge-critical {
-            background-color: var(--bg-critical);
+            background: #450a0a;
             color: #FCA5A5;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
         }
 
         .badge-warning {
-            background-color: var(--bg-warning);
+            background: #451a03;
             color: #FDE68A;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
         }
 
         .badge-good {
-            background-color: var(--bg-good);
+            background: #172554;
             color: #BFDBFE;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
         }
 
-        /* GAUGES - SIMPLIFIED */
-        .gauge-container {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto;
-            position: relative;
+        /* LIST STYLES */
+        ul,
+        ol {
+            padding-left: 20px;
+            margin: 10px 0;
+            line-height: 1.6;
         }
 
-        .gauge-value {
-            fill: none;
-            stroke-width: 8;
-            stroke-linecap: round;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
+        li {
+            margin-bottom: 6px;
+            color: #D1D5DB;
+            font-size: 13px;
         }
 
-        /* STRATEGIC BOX */
-        .strat-rec-box {
-            background: #042f2e;
-            border-left: 4px solid var(--color-primary);
-            border-radius: 4px;
-            padding: 20px;
-            margin-top: 24px;
-            page-break-inside: avoid;
+        /* METRIC */
+        .metric {
+            text-align: center;
+            padding: 15px;
         }
 
-        /* LOGO */
-        .logo-box {
-            font-weight: 800;
-            font-size: 20px;
-            color: var(--color-primary);
-        }
-
-        .logo-box span {
-            color: var(--color-accent);
-        }
-
-        /* CHECKLIST */
-        .check-list-item {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .check-icon {
-            display: inline-block;
-            width: 24px;
-            color: var(--color-primary);
-            font-weight: bold;
-        }
-
-        /* SECTION GROUP - PREVENT ORPHANS */
-        .section-group {
-            margin-bottom: 30px;
-            /* INCREASED spacing */
-        }
-
-        /* METRIC LABELS */
         .metric-label {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
+            color: #9CA3AF;
+            margin-bottom: 5px;
         }
 
-        .metric-big {
-            font-size: 36px;
+        .metric-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #FFF;
+        }
+
+        /* STRONG TEXT */
+        strong {
+            color: #FFF;
             font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 4px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- PAGE 1: COVER -->
-    <div class="page cover-page">
-        <div class="cover-bg-shape"></div>
+    <!-- COVER -->
+    <div class="page cover">
+        <div class="cover-bg"></div>
 
         <div class="cover-content">
-            <div class="cover-logo">
-                <div class="logo-box">SUGAR<span>PIXELS</span></div>
-            </div>
+            <div class="logo">SUGAR<span>PIXELS</span></div>
 
-            <div class="cover-title-group">
-                <h1 class="cover-title">SiteScan<br>Audit Report</h1>
-                <div
-                    style="font-size: 32px; font-weight: 300; margin-top: 15px; color: #9CA3AF; border-top: 4px solid var(--color-accent); display: inline-block; padding-top: 10px;">
-                    2026
-                </div>
+            <h1 class="cover-title">SiteScan<br>Audit Report</h1>
+
+            <div
+                style="font-size: 24px; color: #9CA3AF; border-top: 3px solid var(--accent); display: inline-block; padding-top: 8px;">
+                2026
             </div>
         </div>
 
-        <div class="cover-footer-info">
-            <div style="margin-bottom: 30px;">
-                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px;">Prepared
-                    For</div>
-                <div style="font-size: 24px; font-weight: 800;">{{ report.cover.prepared_for }}</div>
-                <div style="font-size: 15px; font-weight: 600;">{{ report.cover.domain }}</div>
-            </div>
-
-            <div style="margin-bottom: 30px;">
-                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px;">Scan Date
-                </div>
-                <div style="font-size: 16px; font-weight: 700;">{{ report.cover.scan_date }}</div>
-            </div>
-
+        <div class="cover-info">
             <div>
-                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px;">Overall
-                    Score</div>
-                <div style="font-size: 56px; font-weight: 800; color: var(--color-accent);">{{
-                    report.executive_summary.overall_score }}</div>
+                <div class="cover-label">Prepared For</div>
+                <div class="cover-value">{{ report.cover.prepared_for }}</div>
+                <div style="font-size: 14px;">{{ report.cover.domain }}</div>
+            </div>
+            <div>
+                <div class="cover-label">Scan Date</div>
+                <div class="cover-value">{{ report.cover.scan_date }}</div>
+            </div>
+            <div>
+                <div class="cover-label">Overall Score</div>
+                <div class="cover-score">{{ report.executive_summary.overall_score }}</div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 2: EXECUTIVE SUMMARY -->
+    <!-- EXECUTIVE SUMMARY -->
     <div class="page">
-        <div class="header-banner"></div>
+        <div class="header"></div>
 
-        <div class="content-container">
-            <div class="page-title-block">
-                <h1 class="internal-title">Executive Summary</h1>
+        <h1>Executive Summary</h1>
+
+        <div class="section">
+            <h2>Audit Overview</h2>
+            <p>{{ report.executive_summary.business_impact }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Key Findings</h2>
+            {% for item in report.executive_summary.key_findings %}
+            <div class="item">
+                <span class="icon">!</span> {{ item }}
             </div>
+            {% endfor %}
+        </div>
 
-            <div class="section-group">
-                <h2>{{ report.cover.domain }} Audit Overview</h2>
-                <p>{{ report.executive_summary.business_impact }}</p>
+        <div class="card-highlight">
+            <h3>Strategic Recommendation</h3>
+            <p>{{ report.executive_summary.recommendation }}</p>
+        </div>
+    </div>
+
+    <!-- STRATEGIC ASSESSMENT -->
+    <div class="page">
+        <div class="header"></div>
+
+        <h1>Strategic Assessment</h1>
+
+        <table class="two-col">
+            <tr>
+                <td>
+                    <div class="col-box">
+                        <h3 style="color: var(--excellent); margin-bottom: 12px;">✓ What's Working</h3>
+                        {% for strength in report.seo.strengths[:3] %}
+                        <div class="item">
+                            <strong>{{ strength.split(':')[0] if ':' in strength else strength }}</strong>
+                            {% if ':' in strength %}
+                            <p style="font-size: 12px; margin-top: 4px;">{{ strength.split(':')[1] }}</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td>
+                    <div class="col-box weak">
+                        <h3 style="color: var(--critical); margin-bottom: 12px;">⚠ What Needs Fixing</h3>
+                        {% for risk in report.risks_opportunities.top_risks[:3] %}
+                        <div class="item">
+                            <strong>{{ risk.title }}</strong>
+                            <p style="font-size: 11px; color: #9CA3AF; margin-top: 2px;">{{ risk.severity }}</p>
+                            <p style="font-size: 12px; margin-top: 4px;">{{ risk.impact }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- RISKS & OPPORTUNITIES -->
+    <div class="page">
+        <div class="header"></div>
+
+        <h1>Risks & Opportunities</h1>
+
+        <div class="section">
+            <h2 style="color: var(--critical);">Top Risks</h2>
+            {% for risk in report.risks_opportunities.top_risks[:2] %}
+            <div class="card" style="border-left: 4px solid var(--critical);">
+                <h3 style="color: var(--critical);">{{ risk.title }}</h3>
+                <p style="font-size: 11px; margin-bottom: 8px;"><strong>{{ risk.severity }}</strong></p>
+                <p>{{ risk.impact }}</p>
             </div>
+            {% endfor %}
+        </div>
 
-            <div class="section-group">
-                <h2>Key Findings</h2>
-                {% for item in report.executive_summary.key_findings %}
-                <div class="check-list-item">
-                    <span class="check-icon">!</span> {{ item }}
-                </div>
+        <div class="section">
+            <h2 style="color: var(--excellent);">Growth Opportunities</h2>
+            {% for opp in report.risks_opportunities.opportunities[:2] %}
+            <div class="card" style="border-left: 4px solid var(--excellent);">
+                <h3 style="color: var(--excellent);">{{ opp.title }}</h3>
+                <p style="font-size: 11px; margin-bottom: 8px;"><strong>{{ opp.effort }} • {{ opp.roi_indicator
+                        }}</strong></p>
+                <p>{{ opp.impact }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- FINAL RECOMMENDATION -->
+    <div class="page">
+        <div class="header"></div>
+
+        <h1>Final Recommendation</h1>
+
+        <div class="card" style="border-left: 6px solid var(--accent);">
+            <h3 style="color: var(--accent); font-size: 16px;">{{ report.final_recommendation.headline }}</h3>
+            <p style="margin-top: 10px;">{{ report.final_recommendation.recommended_approach }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Expected Outcomes</h2>
+            {% for outcome in report.final_recommendation.expected_outcomes %}
+            <div class="item">
+                <span class="icon" style="color: var(--excellent);">✓</span> {{ outcome }}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="section">
+            <h2>Next Steps</h2>
+            <ol>
+                {% for step in report.final_recommendation.next_steps %}
+                <li>{{ step }}</li>
                 {% endfor %}
-            </div>
-
-            <div class="strat-rec-box">
-                <h3>Strategic Recommendation</h3>
-                <p>{{ report.executive_summary.recommendation }}</p>
-            </div>
+            </ol>
         </div>
-    </div>
 
-    <!-- PAGE 3: STRATEGIC ASSESSMENT -->
-    <div class="page">
-        <div class="header-banner"></div>
-
-        <div class="content-container">
-            <div class="page-title-block">
-                <h1 class="internal-title">Strategic Assessment</h1>
-            </div>
-
-            <div class="split-assessment">
-                <table>
-                    <tr>
-                        <td class="assessment-col assessment-col--strengths">
-                            <h3>✓ What's Working</h3>
-                            {% for strength in report.seo.strengths[:3] %}
-                            <div class="assessment-item">
-                                <h4>{{ strength.split(':')[0] if ':' in strength else strength }}</h4>
-                                <p>{{ strength.split(':')[1] if ':' in strength else '' }}</p>
-                            </div>
-                            {% endfor %}
-                        </td>
-                        <td class="assessment-col assessment-col--weaknesses">
-                            <h3>⚠ What Needs Fixing</h3>
-                            {% for risk in report.risks_opportunities.top_risks[:3] %}
-                            <div class="assessment-item">
-                                <h4>{{ risk.title }}</h4>
-                                <p style="font-size: 12px; color: #9CA3AF;">{{ risk.severity }}</p>
-                                <p>{{ risk.impact }}</p>
-                            </div>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- PAGE 4: FINAL RECOMMENDATION -->
-    <div class="page">
-        <div class="header-banner"></div>
-
-        <div class="content-container">
-            <div class="page-title-block">
-                <h1 class="internal-title">Final Recommendation</h1>
-            </div>
-
-            <div class="card-bordered" style="border-left: 6px solid #F472B6;">
-                <h3 style="color: #F472B6;">Recommended Strategy: {{ report.final_recommendation.headline }}</h3>
-                <p>{{ report.final_recommendation.recommended_approach }}</p>
-            </div>
-
-            <div class="section-group">
-                <h2>Expected Outcomes</h2>
-                {% for outcome in report.final_recommendation.expected_outcomes[:3] %}
-                <div class="check-list-item">
-                    <span class="check-icon" style="color:#34D399;">✓</span> {{ outcome }}
-                </div>
-                {% endfor %}
-            </div>
-
-            <div class="section-group">
-                <h2>Next Steps</h2>
-                <ol style="padding-left: 20px; color: #D1D5DB; line-height: 1.8;">
-                    {% for step in report.final_recommendation.next_steps[:4] %}
-                    <li>{{ step }}</li>
-                    {% endfor %}
-                </ol>
-            </div>
-
-            <div class="highlight-box" style="margin-top: 40px;">
-                <h3>Investment Estimate</h3>
-                <div class="metric-label">Estimated Cost</div>
-                <div class="metric-big" style="color: white;">{{ report.final_recommendation.estimated_investment }}
-                </div>
-            </div>
+        <div class="card-highlight" style="margin-top: 20px;">
+            <h3>Investment Estimate</h3>
+            <div class="metric-value" style="font-size: 28px; margin-top: 8px;">{{
+                report.final_recommendation.estimated_investment }}</div>
+            <p style="font-size: 12px; margin-top: 8px;">Duration: {{ report.final_recommendation.duration | default('6
+                Weeks') }}</p>
         </div>
     </div>
 
