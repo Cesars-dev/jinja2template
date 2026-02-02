@@ -146,7 +146,7 @@
             background: #0D0D0D;
             color: var(--color-text-main);
             page-break-after: always;
-            page-break-inside: avoid;
+            /* REMOVED: page-break-inside: avoid - causes aggressive pagination */
             position: relative;
             margin: 0 auto 20px auto;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
@@ -768,13 +768,8 @@
             color: #CCFBF1;
         }
 
-        /* ==================== PAGINATION CONTROLS ==================== */
-        .card-bordered,
-        .highlight-box,
-        .stat-callout,
-        .assessment-col {
-            page-break-inside: avoid;
-        }
+        /* ==================== PAGINATION CONTROLS - SOFTENED ==================== */
+        /* REMOVED: Most page-break-inside: avoid rules - too aggressive for APITemplate.io */
 
         h2,
         h3 {
@@ -798,9 +793,9 @@
            PAGINATION CONTROL - Prevent Orphans/Widows
            ============================================ */
 
-        /* Logic: Wrap header + content in a .section-group to keep them together */
+        /* Logic: Softer pagination - allow natural breaks */
         .section-group {
-            page-break-inside: avoid !important;
+            /* REMOVED: page-break-inside: avoid !important */
             display: block;
             width: 100%;
             margin-bottom: 20px;
@@ -810,32 +805,15 @@
         h2,
         h3,
         h4 {
-            page-break-after: avoid !important;
-            /* Don't break after heading */
-            orphans: 4;
-            widows: 4;
+            page-break-after: avoid;
+            /* SOFTENED: removed !important and reduced orphans/widows */
+            orphans: 2;
+            widows: 2;
         }
 
-        /* Keep card sections together */
-        .card-bordered,
-        .highlight-box,
-        .highlight-box-large,
-        .strat-rec-box,
-        .assessment-col,
-        .stat-callout {
-            page-break-inside: avoid;
-            /* Don't split these */
-        }
-
-        /* Keep tables together */
-        .modern-table,
-        table.layout-grid {
-            page-break-inside: avoid;
-        }
-
-        /* Keep specific sections together */
-        .split-assessment,
-        .exec-hero {
+        /* Only keep CRITICAL elements together */
+        .cover-page,
+        .strat-rec-box {
             page-break-inside: avoid;
         }
 
@@ -847,10 +825,7 @@
             /* Min 3 lines at top */
         }
 
-        /* Keep list items together */
-        li {
-            page-break-inside: avoid;
-        }
+        /* REMOVED: li page-break-inside - too aggressive */
 
         /* Force page breaks BEFORE certain sections */
         .page-title-block {
