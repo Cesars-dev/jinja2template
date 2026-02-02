@@ -155,8 +155,8 @@
         }
 
         .content-container {
-            padding: 20px 50px 60px 50px;
-            /* ADDED: 20px top, 60px bottom for breathing room */
+            padding: 0 50px 40px 50px;
+            /* REVERTED: Back to original */
             position: relative;
             z-index: 10;
         }
@@ -297,18 +297,22 @@
 
         .page-title-block {
             margin-top: 0;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
+            /* REDUCED from 40px */
             padding-left: 0;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
+            padding-bottom: 12px;
+            /* REDUCED from 20px */
         }
 
         /* ==================== ENHANCED EXECUTIVE SUMMARY ==================== */
         .exec-hero {
             display: grid;
             grid-template-columns: 1fr 2fr;
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 24px;
+            /* REDUCED from 40px */
+            margin-bottom: 24px;
+            /* REDUCED from 40px */
         }
 
         .score-showcase {
@@ -800,7 +804,8 @@
             /* REMOVED: page-break-inside: avoid !important */
             display: block;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            /* REDUCED from 20px */
         }
 
         /* Keep headings with their content */
@@ -1056,7 +1061,7 @@
                             <h3>What's Working</h3>
                         </div>
 
-                        {% for strength in report.seo.strengths[:3] %}
+                        {% for strength in report.seo.strengths[:2] %}
                         <div class="assessment-item">
                             <h4>{{ strength.split(':')[0] if ':' in strength else strength }}</h4>
                             <p class="assessment-item__impact">
@@ -1072,7 +1077,7 @@
                             <h3>What Needs Fixing</h3>
                         </div>
 
-                        {% for risk in report.risks_opportunities.top_risks[:3] %}
+                        {% for risk in report.risks_opportunities.top_risks[:2] %}
                         <div class="assessment-item">
                             <h4>{{ risk.title }}</h4>
                             <p class="assessment-item__meta">Severity: {{ risk.severity }}</p>
@@ -1120,7 +1125,7 @@
                                 Top {{ report.risks_opportunities.headline }}
                             </h2>
 
-                            {% for risk in report.risks_opportunities.top_risks[:3] %}
+                            {% for risk in report.risks_opportunities.top_risks[:2] %}
                             <div class="card-bordered mb-4"
                                 style="border-left: 4px solid #EF4444; min-height: 160px; display: flex; flex-direction: column; justify-content: space-between;">
                                 <div
@@ -1146,7 +1151,7 @@
                                 Growth Opportunities
                             </h2>
 
-                            {% for opp in report.risks_opportunities.opportunities[:3] %}
+                            {% for opp in report.risks_opportunities.opportunities[:2] %}
                             <div class="card-bordered mb-4"
                                 style="border-left: 4px solid #10B981; min-height: 160px; display: flex; flex-direction: column; justify-content: space-between;">
                                 <div
@@ -1299,7 +1304,7 @@
                     <tbody>
                         {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto',
                         'performance')
-                        | list)[:5] %}
+                        | list)[:3] %}
                         <tr>
                             <td>
                                 <span class="badge badge-{{ issue.severity }}"
@@ -1407,7 +1412,7 @@
                     </thead>
                     <tbody>
                         {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto', 'seo') |
-                        list)[:5] %}
+                        list)[:3] %}
                         <tr>
                             <td>
                                 <span class="badge badge-{{ issue.severity }}"
@@ -1753,7 +1758,7 @@
                 <tr>
                     <td width="60%" class="gap-right">
                         <h2>Expected Outcomes</h2>
-                        {% for outcome in report.final_recommendation.expected_outcomes[:3] %}
+                        {% for outcome in report.final_recommendation.expected_outcomes[:2] %}
                         <div class="check-list-item"><span class="check-icon" style="color:#34D399;">✓</span> {{
                             outcome
                             }}</div>
