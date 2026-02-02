@@ -152,14 +152,15 @@
             min-height: 11in;
             background: #0D0D0D;
             color: var(--color-text-main);
-            page-break-before: always;  /* V5: Force each page to start fresh */
-            
-            
+            page-break-before: always;
+            /* V5: Force each page to start fresh */
+
+
             position: relative;
             margin: 0 auto 20px auto;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
             padding: 0;
-            
+
         }
 
         .content-container {
@@ -1327,8 +1328,7 @@
                     </thead>
                     <tbody>
                         {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto',
-                        'performance')
-                        | list)[:3] %}
+                        'performance') | list)[:2] %}
                         <tr>
                             <td>
                                 <span class="badge badge-{{ issue.severity }}"
@@ -1618,7 +1618,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for issue in report.technical.critical_issues[:3] %}
+                        {% for issue in report.technical.critical_issues[:2] %}
                         <tr>
                             <td><span class="badge-critical"
                                     style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">High</span></td>
@@ -1871,7 +1871,7 @@
                     </thead>
                     <tbody>
                         {% for issue in (report.appendix.all_issues_table | sort(attribute='severity',
-                        reverse=true))[:12] %}
+                        reverse=true))[:10] %}
                         <tr style="border-bottom: 1px solid #222;">
                             <td style="padding: 6px 4px;">
                                 <span style="font-size: 10px; text-transform: capitalize; color: var(--color-primary);">
