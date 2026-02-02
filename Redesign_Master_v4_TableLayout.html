@@ -1,5 +1,9 @@
-{# QUICK FIX VERSION - APITemplate.io Compatible #}
+{# ============================================ #}
+{# SUGAR PIXELS SITESCAN REPORT - v16 Enhanced #}
+{# Complete Template - All Pages #}
+{# ============================================ #}
 
+{# DATA EXTRACTION - Handle Array Wrapper #}
 {% if data is defined and data is iterable and data is not string and data is not mapping %}
 {% set report = data[0] %}
 {% elif data is defined %}
@@ -13,8 +17,7 @@
     <meta charset="UTF-8">
     <title>Sugar Pixels SiteScan™ Report</title>
     <style>
-        /* QUICK FIX: APITemplate.io Compatible CSS */
-
+        /* ==================== RESET & BASE ==================== */
         html,
         body {
             margin: 0;
@@ -24,79 +27,183 @@
             background-color: #111111;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
-        }
-
-        * {
             box-sizing: border-box;
         }
 
-        /* COLORS */
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        /* ==================== COLOR SYSTEM ==================== */
         :root {
+            /* Primary Brand Colors */
             --color-primary: #2DD4BF;
+            --color-primary-dim: #115E59;
             --color-accent: #F472B6;
+            --color-white: #FFFFFF;
+
+            /* Text Colors */
             --color-text-main: #F3F4F6;
             --color-text-muted: #9CA3AF;
+
+            /* Background Colors */
+            --bg-page: #000000;
             --bg-card: #0A0A0A;
             --bg-highlight: #171717;
             --border-color: #333333;
+
+            /* Semantic Colors */
             --color-critical: #F87171;
             --color-warning: #FBBF24;
             --color-good: #60A5FA;
             --color-excellent: #34D399;
+
             --bg-critical: #450a0a;
             --bg-warning: #451a03;
+            --bg-good: #172554;
+            --bg-excellent: #064e3b;
         }
 
-        /* PAGE LAYOUT - FIXED FOR APITEMPLATE */
+        /* ==================== SCORE COLORS ==================== */
+        .text-critical {
+            color: var(--color-critical) !important;
+        }
+
+        .bg-critical {
+            background-color: var(--bg-critical);
+            color: #FCA5A5;
+        }
+
+        .border-critical {
+            border-color: #EF4444;
+        }
+
+        .badge-critical {
+            background-color: var(--bg-critical);
+            color: #FCA5A5;
+        }
+
+        .text-warning {
+            color: var(--color-warning) !important;
+        }
+
+        .bg-warning {
+            background-color: var(--bg-warning);
+            color: #FDE68A;
+        }
+
+        .border-warning {
+            border-color: #F59E0B;
+        }
+
+        .badge-warning {
+            background-color: #422006;
+            color: #FDE68A;
+        }
+
+        .text-good {
+            color: var(--color-good) !important;
+        }
+
+        .bg-good {
+            background-color: var(--bg-good);
+            color: #BFDBFE;
+        }
+
+        .border-good {
+            border-color: #3B82F6;
+        }
+
+        .badge-good {
+            background-color: var(--bg-good);
+            color: #BFDBFE;
+        }
+
+        .text-excellent {
+            color: var(--color-excellent) !important;
+        }
+
+        .bg-excellent {
+            background-color: var(--bg-excellent);
+            color: #A7F3D0;
+        }
+
+        .border-excellent {
+            border-color: #10B981;
+        }
+
+        .badge-excellent {
+            background-color: var(--bg-excellent);
+            color: #A7F3D0;
+        }
+
+        /* ==================== LAYOUT UTILITIES ==================== */
         .page {
             width: 8.5in;
-            min-height: 10.5in;
-            /* CHANGED from 11in */
+            min-height: 11in;
             background: #0D0D0D;
             color: var(--color-text-main);
             page-break-after: always;
-            /* REMOVED page-break-inside: avoid - causes issues */
+            page-break-inside: avoid;
             position: relative;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
             padding: 0;
         }
 
         .content-container {
-            padding: 0 50px 60px 50px;
-            /* INCREASED bottom padding */
+            padding: 0 50px 40px 50px;
+            position: relative;
+            z-index: 10;
         }
 
-        /* COVER PAGE - SIMPLIFIED */
+        /* ==================== COVER PAGE ==================== */
         .cover-page {
             position: relative;
-            min-height: 10.5in;
+            min-height: 11in;
             background: #000;
-            padding: 60px 50px;
         }
 
         .cover-bg-shape {
             position: absolute;
             top: 0;
+            bottom: 0;
             right: 0;
-            width: 60%;
-            /* REDUCED from 70% */
-            height: 100%;
-            background-color: #1a1a1a;
-            /* SIMPLIFIED - no clip-path */
+            width: 70%;
+            background-color: #111;
+            clip-path: polygon(40% 0, 100% 0, 100% 100%, 0 100%);
             z-index: 1;
+        }
+
+        .cover-texture {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 70%;
+            background-image: url(https://images.pexels.com/photos/6986455/pexels-photo-6986455.jpeg);
+            background-size: cover;
+            background-position: center right;
+            clip-path: polygon(40% 0, 100% 0, 100% 100%, 0 100%);
+            z-index: 2;
         }
 
         .cover-content {
             position: relative;
             z-index: 10;
+            height: 100%;
+            padding: 60px 50px;
             width: 55%;
         }
 
         .cover-logo {
-            margin-bottom: 180px;
+            margin-bottom: 2.5in;
         }
 
         .cover-title-group {
-            margin-bottom: 150px;
+            margin-bottom: 2in;
         }
 
         .cover-footer-info {
@@ -109,23 +216,40 @@
             z-index: 20;
         }
 
-        /* HEADER BANNER - SIMPLIFIED */
+        /* ==================== HEADER BANNER ==================== */
         .header-banner {
-            height: 140px;
-            /* REDUCED from 180px */
+            position: relative;
+            height: 180px;
             width: 100%;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            margin-bottom: 30px;
-            /* REMOVED clip-path - causes black pages */
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 65%, 0 100%);
+            margin-bottom: 40px;
+            background: transparent;
         }
 
-        /* TYPOGRAPHY */
+        .header-bg {
+            width: 100%;
+            height: 100%;
+            background-image: url(https://images.pexels.com/photos/34600/pexels-photo.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header-bg-tech,
+        .header-bg-code {
+            background-image: url(https://images.pexels.com/photos/34600/pexels-photo.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* ==================== TYPOGRAPHY ==================== */
         h1.cover-title {
             font-size: 64px;
             line-height: 1.05;
             font-weight: 800;
             color: #FFFFFF;
             margin: 0;
+            letter-spacing: -2px;
         }
 
         h1.internal-title {
@@ -142,6 +266,7 @@
             color: var(--color-primary);
             margin: 0 0 20px 0;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
             page-break-after: avoid;
         }
 
@@ -150,7 +275,13 @@
             font-weight: 700;
             color: #FFFFFF;
             margin: 0 0 12px 0;
-            page-break-after: avoid;
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin: 0 0 8px 0;
         }
 
         p {
@@ -158,45 +289,58 @@
             line-height: 1.7;
             color: var(--color-text-muted);
             margin-bottom: 16px;
+            orphans: 3;
+            widows: 3;
         }
 
         .page-title-block {
             margin-top: 0;
             margin-bottom: 40px;
+            padding-left: 0;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
         }
 
-        /* EXECUTIVE SUMMARY - SIMPLIFIED GRID TO TABLE */
+        /* ==================== ENHANCED EXECUTIVE SUMMARY ==================== */
         .exec-hero {
-            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
             margin-bottom: 40px;
-        }
-
-        .exec-hero table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .exec-hero td {
-            vertical-align: top;
-            padding: 10px;
         }
 
         .score-showcase {
             border-radius: 8px;
             padding: 30px;
             text-align: center;
-            background: var(--bg-card);
+        }
+
+        .score-showcase__label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-muted);
+            margin-bottom: 16px;
+        }
+
+        .score-showcase__value {
+            font-size: 72px;
+            font-weight: 800;
+            color: var(--color-accent);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .score-showcase__label-bottom {
+            font-size: 14px;
+            color: var(--color-text-muted);
+            margin-top: 8px;
         }
 
         .score-grid {
-            width: 100%;
-        }
-
-        .score-grid table {
-            width: 100%;
-            border-collapse: collapse;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
         }
 
         .score-card {
@@ -205,44 +349,104 @@
             border-radius: 6px;
             padding: 16px;
             text-align: center;
-            margin-bottom: 10px;
         }
 
-        /* CARDS */
-        .card-bordered {
-            border: 1px solid var(--border-color);
-            padding: 24px;
+        .score-card__label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+        }
+
+        .score-card__value {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .score-card--performance .score-card__value {
+            color: var(--color-good);
+        }
+
+        .score-card--seo .score-card__value {
+            color: var(--color-excellent);
+        }
+
+        .score-card--ux .score-card__value {
+            color: var(--color-warning);
+        }
+
+        .score-card--technical .score-card__value {
+            color: #8B5CF6;
+        }
+
+        .exec-overview {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--color-text-main);
+            margin-bottom: 32px;
+        }
+
+        .exec-overview strong {
+            color: var(--color-accent);
+        }
+
+        .stat-callout {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 16px;
+            /* Reduced padding */
+            background: var(--bg-critical);
+            border-left: 4px solid var(--color-critical);
             border-radius: 4px;
-            background: var(--bg-card);
-            margin-bottom: 24px;
+            margin: 16px 0;
+            /* Reduced margin */
             page-break-inside: avoid;
         }
 
-        .highlight-box {
-            background-color: var(--bg-highlight);
-            color: white;
-            padding: 30px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            page-break-inside: avoid;
+        .stat-callout__icon {
+            font-size: 36px;
+            flex-shrink: 0;
         }
 
-        /* SPLIT ASSESSMENT - CHANGED FROM TABLE TO DIV */
+        .stat-callout h4 {
+            font-size: 16px;
+            color: var(--color-critical);
+            margin-bottom: 6px;
+        }
+
+        .stat-callout p {
+            font-size: 14px;
+            color: #FCA5A5;
+            margin: 0;
+        }
+
+        /* ==================== SPLIT ASSESSMENT ==================== */
         .split-assessment {
+            display: table;
             width: 100%;
+            table-layout: fixed;
             margin: 20px 0;
         }
 
-        .split-assessment table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
         .assessment-col {
-            width: 48%;
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
             padding: 16px;
             border-radius: 8px;
-            vertical-align: top;
+            page-break-inside: avoid;
+        }
+
+        /* Add spacing between columns */
+        .assessment-col--strengths {
+            padding-right: 10px;
+        }
+
+        .assessment-col--weaknesses {
+            padding-left: 10px;
         }
 
         .assessment-col--strengths {
@@ -255,6 +459,24 @@
             border-left: 4px solid var(--color-critical);
         }
 
+        .col-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .col-header__icon {
+            font-size: 28px;
+        }
+
+        .col-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
         .assessment-item {
             margin-bottom: 20px;
             padding-bottom: 20px;
@@ -263,14 +485,93 @@
 
         .assessment-item:last-child {
             border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
-        /* TABLES */
+        .assessment-item h4 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .assessment-item__meta {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+        }
+
+        .assessment-item__impact {
+            font-size: 13px;
+            color: var(--color-text-muted);
+            font-style: italic;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ==================== CARDS ==================== */
+        .card-bordered {
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 4px;
+            background: var(--bg-card);
+            color: var(--color-text-main);
+            page-break-inside: avoid;
+            margin-bottom: 24px;
+        }
+
+        .highlight-box {
+            background-color: var(--bg-highlight);
+            color: white;
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            page-break-inside: avoid;
+        }
+
+        .highlight-box h3,
+        .highlight-box div {
+            color: white !important;
+        }
+
+        .highlight-box-large {
+            background-color: var(--bg-highlight);
+            color: white;
+            padding: 40px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* ==================== TABLES ==================== */
+        table.layout-grid {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        table.layout-grid td {
+            vertical-align: top;
+        }
+
+        .gap-right {
+            padding-right: 30px;
+        }
+
+        .gap-left {
+            padding-left: 30px;
+        }
+
         .modern-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
-            margin: 20px 0;
+        }
+
+        .modern-table thead {
+            display: table-header-group;
         }
 
         .modern-table th {
@@ -280,6 +581,7 @@
             color: #D1D5DB;
             font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
             font-size: 11px;
         }
 
@@ -289,37 +591,129 @@
             color: var(--color-text-main);
         }
 
-        /* BADGES */
-        .badge-critical {
-            background-color: var(--bg-critical);
-            color: #FCA5A5;
+        .modern-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .modern-table tr {
+            page-break-inside: avoid;
+        }
+
+        /* ==================== BADGES ==================== */
+        .badge {
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 11px;
+            display: inline-block;
+            font-weight: 600;
         }
 
-        .badge-warning {
-            background-color: var(--bg-warning);
-            color: #FDE68A;
-            padding: 4px 8px;
-            border-radius: 4px;
+        /* ==================== LOGO ==================== */
+        .logo-box {
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-box span {
+            color: var(--color-accent);
+        }
+
+        .icon-send {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            fill: var(--color-primary);
+        }
+
+        /* ==================== SPACING UTILITIES ==================== */
+        .mb-2 {
+            margin-bottom: 8px;
+        }
+
+        .mb-3 {
+            margin-bottom: 16px;
+        }
+
+        .mb-4 {
+            margin-bottom: 24px;
+        }
+
+        .mb-5 {
+            margin-bottom: 32px;
+        }
+
+        .mb-6 {
+            margin-bottom: 40px;
+        }
+
+        .mb-8 {
+            margin-bottom: 32px;
+        }
+
+        /* ==================== CHECKLIST ==================== */
+        .check-list-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: table;
+            width: 100%;
+        }
+
+        .check-icon {
+            display: table-cell;
+            width: 24px;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .check-text {
+            display: table-cell;
+            color: var(--color-text-main);
+        }
+
+        /* ==================== METRICS ==================== */
+        .metric-big {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
             font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
         }
 
-        .badge-good {
-            background-color: var(--bg-good);
-            color: #BFDBFE;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
+        .score-card-container {
+            padding: 20px;
+            border-top: 4px solid var(--border-color);
+            background: var(--bg-card);
+            text-align: center;
         }
 
-        /* GAUGES - SIMPLIFIED */
+        /* ==================== CHARTS/GAUGES ==================== */
         .gauge-container {
             width: 100px;
             height: 100px;
             margin: 0 auto;
             position: relative;
+        }
+
+        .gauge-bg {
+            fill: none;
+            stroke: var(--border-color);
+            stroke-width: 8;
+        }
+
+        .gauge-bg-dark {
+            fill: none;
+            stroke: var(--border-color);
+            stroke-width: 8;
         }
 
         .gauge-value {
@@ -330,7 +724,33 @@
             transform-origin: 50% 50%;
         }
 
-        /* STRATEGIC BOX */
+        .gauge-value-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .gauge-value-text--small {
+            font-size: 20px;
+        }
+
+        .bar-container {
+            margin-bottom: 12px;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+        }
+
+        .bar-val {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        /* ==================== STRATEGIC RECOMMENDATION BOX ==================== */
         .strat-rec-box {
             background: #042f2e;
             border-left: 4px solid var(--color-primary);
@@ -340,62 +760,120 @@
             page-break-inside: avoid;
         }
 
-        /* LOGO */
-        .logo-box {
-            font-weight: 800;
-            font-size: 20px;
+        .strat-rec-box h3 {
             color: var(--color-primary);
         }
 
-        .logo-box span {
-            color: var(--color-accent);
+        .strat-rec-box p {
+            color: #CCFBF1;
         }
 
-        /* CHECKLIST */
-        .check-list-item {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-color);
+        /* ==================== PAGINATION CONTROLS ==================== */
+        .card-bordered,
+        .highlight-box,
+        .stat-callout,
+        .assessment-col {
+            page-break-inside: avoid;
         }
 
-        .check-icon {
-            display: inline-block;
-            width: 24px;
-            color: var(--color-primary);
-            font-weight: bold;
+        h2,
+        h3 {
+            page-break-after: avoid;
         }
 
-        /* SECTION GROUP - PREVENT ORPHANS */
+        /* ==================== PRINT STYLES ==================== */
+        @media print {
+            body {
+                background: #111;
+                color: white;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+
+        /* ============================================
+           PAGINATION CONTROL - Prevent Orphans/Widows
+           ============================================ */
+
+        /* Logic: Wrap header + content in a .section-group to keep them together */
         .section-group {
-            margin-bottom: 30px;
-            /* INCREASED spacing */
+            page-break-inside: avoid !important;
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
-        /* METRIC LABELS */
-        .metric-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
+        /* Keep headings with their content */
+        h2,
+        h3,
+        h4 {
+            page-break-after: avoid !important;
+            /* Don't break after heading */
+            orphans: 4;
+            widows: 4;
         }
 
-        .metric-big {
-            font-size: 36px;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 4px;
+        /* Keep card sections together */
+        .card-bordered,
+        .highlight-box,
+        .highlight-box-large,
+        .strat-rec-box,
+        .assessment-col,
+        .stat-callout {
+            page-break-inside: avoid;
+            /* Don't split these */
+        }
+
+        /* Keep tables together */
+        .modern-table,
+        table.layout-grid {
+            page-break-inside: avoid;
+        }
+
+        /* Keep specific sections together */
+        .split-assessment,
+        .exec-hero {
+            page-break-inside: avoid;
+        }
+
+        /* Prevent single lines at top/bottom of page */
+        p {
+            orphans: 3;
+            /* Min 3 lines at bottom */
+            widows: 3;
+            /* Min 3 lines at top */
+        }
+
+        /* Keep list items together */
+        li {
+            page-break-inside: avoid;
+        }
+
+        /* Force page breaks BEFORE certain sections */
+        .page-title-block {
+            page-break-before: auto;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- PAGE 1: COVER -->
+    <!-- ================= PAGE 1: COVER ================= -->
     <div class="page cover-page">
         <div class="cover-bg-shape"></div>
+        <div class="cover-texture"></div>
 
         <div class="cover-content">
             <div class="cover-logo">
-                <div class="logo-box">SUGAR<span>PIXELS</span></div>
+                <div class="logo-box">
+                    <svg class="icon-send" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                    </svg>
+                    SUGAR<span>PIXELS</span>
+                </div>
             </div>
 
             <div class="cover-title-group">
@@ -408,88 +886,637 @@
         </div>
 
         <div class="cover-footer-info">
-            <div style="margin-bottom: 30px;">
-                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px;">Prepared
-                    For</div>
-                <div style="font-size: 24px; font-weight: 800;">{{ report.cover.prepared_for }}</div>
-                <div style="font-size: 15px; font-weight: 600;">{{ report.cover.domain }}</div>
+            <div class="mb-6">
+                <div
+                    style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                    Prepared For
+                </div>
+                <div style="font-size: 24px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                    {{ report.cover.prepared_for }}
+                </div>
+                <div style="font-size: 15px; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                    {{ report.cover.domain }}
+                </div>
             </div>
 
-            <div style="margin-bottom: 30px;">
-                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px;">Scan Date
+            <div class="mb-6">
+                <div
+                    style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                    Scan Date
                 </div>
-                <div style="font-size: 16px; font-weight: 700;">{{ report.cover.scan_date }}</div>
+                <div style="font-size: 16px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                    {{ report.cover.scan_date }}
+                </div>
             </div>
 
             <div>
-                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px;">Overall
-                    Score</div>
-                <div style="font-size: 56px; font-weight: 800; color: var(--color-accent);">{{
-                    report.executive_summary.overall_score }}</div>
+                <div
+                    style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                    Overall Score
+                </div>
+                <div
+                    style="font-size: 56px; font-weight: 800; color: var(--color-accent); text-shadow: 0 2px 4px rgba(0,0,0,0.9);">
+                    {{ report.executive_summary.overall_score }}
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 2: EXECUTIVE SUMMARY -->
+    <!-- ================= PAGE 2: EXECUTIVE SUMMARY (PART 1) ================= -->
     <div class="page">
-        <div class="header-banner"></div>
+        <div class="header-banner">
+            <div class="header-bg"></div>
+        </div>
 
         <div class="content-container">
             <div class="page-title-block">
                 <h1 class="internal-title">Executive Summary</h1>
             </div>
 
+            <!-- Hero Score Section -->
+            <div class="exec-hero">
+                <div class="score-showcase" style="text-align: center; padding: 20px;">
+                    <div class="gauge-container" style="width: 160px; height: 160px; margin: 0 auto 15px auto;">
+                        <svg viewBox="0 0 100 100" width="160" height="160">
+                            <circle cx="50" cy="50" r="45" class="gauge-bg" />
+                            <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#F25C78" stroke-dasharray="283"
+                                stroke-dashoffset="{{ 283 - (283 * (report.executive_summary.overall_score | default(0)) / 100) }}" />
+                        </svg>
+                        <div class="gauge-text"
+                            style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                            <div style="font-size: 42px; font-weight: 800; color: white;">{{
+                                report.executive_summary.overall_score }}</div>
+                        </div>
+                    </div>
+                    <div class="score-showcase__label" style="font-size: 18px; font-weight: 700; margin-bottom: 5px;">
+                        Overall Score</div>
+                    <div class="score-showcase__label-bottom" style="font-size: 13px; color: #9CA3AF;">Health Assessment
+                    </div>
+                </div>
+
+                <div class="score-grid">
+                    <!-- Performance -->
+                    <div class="score-card score-card--performance"
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+                        <div class="gauge-container" style="width: 80px; height: 80px; margin-bottom: 10px;">
+                            <svg viewBox="0 0 100 100" width="80" height="80">
+                                <circle cx="50" cy="50" r="45" class="gauge-bg" />
+                                <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#3B82F6"
+                                    stroke-dasharray="283"
+                                    stroke-dashoffset="{{ 283 - (283 * (report.performance.score | default(0)) / 100) }}" />
+                            </svg>
+                            <div class="gauge-text"
+                                style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                                <div style="font-size: 22px; font-weight: 800; color: white;">{{
+                                    report.performance.score }}</div>
+                            </div>
+                        </div>
+                        <div class="score-card__label" style="font-size: 13px; font-weight: 700; color: #3B82F6;">
+                            Performance</div>
+                    </div>
+
+                    <!-- SEO -->
+                    <div class="score-card score-card--seo"
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+                        <div class="gauge-container" style="width: 80px; height: 80px; margin-bottom: 10px;">
+                            <svg viewBox="0 0 100 100" width="80" height="80">
+                                <circle cx="50" cy="50" r="45" class="gauge-bg" />
+                                <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#10B981"
+                                    stroke-dasharray="283"
+                                    stroke-dashoffset="{{ 283 - (283 * (report.seo.score | default(0)) / 100) }}" />
+                            </svg>
+                            <div class="gauge-text"
+                                style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                                <div style="font-size: 22px; font-weight: 800; color: white;">{{ report.seo.score }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="score-card__label" style="font-size: 13px; font-weight: 700; color: #10B981;">SEO
+                        </div>
+                    </div>
+
+                    <!-- UX -->
+                    <div class="score-card score-card--ux"
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+                        <div class="gauge-container" style="width: 80px; height: 80px; margin-bottom: 10px;">
+                            <svg viewBox="0 0 100 100" width="80" height="80">
+                                <circle cx="50" cy="50" r="45" class="gauge-bg" />
+                                <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#F59E0B"
+                                    stroke-dasharray="283"
+                                    stroke-dashoffset="{{ 283 - (283 * (report.ux.score | default(0)) / 100) }}" />
+                            </svg>
+                            <div class="gauge-text"
+                                style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                                <div style="font-size: 22px; font-weight: 800; color: white;">{{ report.ux.score }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="score-card__label" style="font-size: 13px; font-weight: 700; color: #F59E0B;">UX /
+                            UI</div>
+                    </div>
+
+                    <!-- Technical -->
+                    <div class="score-card score-card--technical"
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;">
+                        <div class="gauge-container" style="width: 80px; height: 80px; margin-bottom: 10px;">
+                            <svg viewBox="0 0 100 100" width="80" height="80">
+                                <circle cx="50" cy="50" r="45" class="gauge-bg" />
+                                <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#8B5CF6"
+                                    stroke-dasharray="283"
+                                    stroke-dashoffset="{{ 283 - (283 * (report.technical.score | default(0)) / 100) }}" />
+                            </svg>
+                            <div class="gauge-text"
+                                style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                                <div style="font-size: 22px; font-weight: 800; color: white;">{{ report.technical.score
+                                    }}</div>
+                            </div>
+                        </div>
+                        <div class="score-card__label" style="font-size: 13px; font-weight: 700; color: #8B5CF6;">
+                            Technical</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overview & Key Findings -->
             <div class="section-group">
                 <h2>{{ report.cover.domain }} Audit Overview</h2>
-                <p>{{ report.executive_summary.business_impact }}</p>
+                <p class="exec-overview">
+                    {{ report.executive_summary.business_impact }}
+                </p>
             </div>
 
             <div class="section-group">
                 <h2>Key Findings</h2>
-                {% for item in report.executive_summary.key_findings %}
-                <div class="check-list-item">
-                    <span class="check-icon">!</span> {{ item }}
+                <div>
+                    {% for item in report.executive_summary.key_findings %}
+                    <div class="check-list-item">
+                        <span class="check-icon" style="color: var(--color-accent);">!</span>
+                        <span class="check-text">{{ item }}</span>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-
-            <div class="strat-rec-box">
-                <h3>Strategic Recommendation</h3>
-                <p>{{ report.executive_summary.recommendation }}</p>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 3: STRATEGIC ASSESSMENT -->
+    <!-- ================= PAGE 3: STRATEGIC ASSESSMENT ================= -->
     <div class="page">
-        <div class="header-banner"></div>
+        <div class="header-banner">
+            <div class="header-bg"></div>
+        </div>
 
         <div class="content-container">
             <div class="page-title-block">
                 <h1 class="internal-title">Strategic Assessment</h1>
             </div>
 
-            <div class="split-assessment">
-                <table>
+            <!-- Strengths vs Weaknesses Split -->
+            <div class="section-group">
+                <div class="split-assessment">
+                    <div class="assessment-col assessment-col--strengths">
+                        <div class="col-header">
+                            <span class="col-header__icon">✓</span>
+                            <h3>What's Working</h3>
+                        </div>
+
+                        {% for strength in report.seo.strengths[:3] %}
+                        <div class="assessment-item">
+                            <h4>{{ strength.split(':')[0] if ':' in strength else strength }}</h4>
+                            <p class="assessment-item__impact">
+                                {{ strength.split(':')[1] if ':' in strength else strength }}
+                            </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="assessment-col assessment-col--weaknesses">
+                        <div class="col-header">
+                            <span class="col-header__icon">⚠</span>
+                            <h3>What Needs Fixing</h3>
+                        </div>
+
+                        {% for risk in report.risks_opportunities.top_risks[:3] %}
+                        <div class="assessment-item">
+                            <h4>{{ risk.title }}</h4>
+                            <p class="assessment-item__meta">Severity: {{ risk.severity }}</p>
+                            <p class="assessment-item__impact">{{ risk.impact }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Insights Group -->
+            <div class="section-group">
+                <!-- Strategic Recommendation -->
+                <div class="strat-rec-box">
+                    <h3>Strategic Recommendation</h3>
+                    <p>{{ report.executive_summary.recommendation }}</p>
+                </div>
+
+                <!-- Strategic Insight -->
+                <div class="strat-rec-box" style="margin-top: 16px;">
+                    <h3>Strategic Insight</h3>
+                    <p>{{ report.executive_summary.headline }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 4: KEY RISKS & OPPORTUNITIES ================= -->
+    <div class="page">
+        <div class="header-banner">
+            <div class="header-bg"></div>
+        </div>
+
+        <div class="content-container">
+            <div class="page-title-block">
+                <h1 class="internal-title">Key Risks & Opportunities</h1>
+            </div>
+
+            <table class="layout-grid">
+                <tr>
+                    <td width="50%" class="gap-right">
+                        <div class="section-group">
+                            <h2 class="text-critical"
+                                style="border-bottom: 2px solid #EF4444; padding-bottom: 10px; margin-bottom: 20px;">
+                                Top {{ report.risks_opportunities.headline }}
+                            </h2>
+
+                            {% for risk in report.risks_opportunities.top_risks[:3] %}
+                            <div class="card-bordered mb-4"
+                                style="border-left: 4px solid #EF4444; min-height: 160px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div
+                                    style="font-size: 15px; font-weight: 700; color: #F87171; margin-bottom: 8px; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; height: 42px; display: flex; align-items: flex-start; overflow: hidden;">
+                                    {{ risk.title }}
+                                </div>
+                                <div
+                                    style="font-size: 12px; color: #FFFFFF; text-transform: uppercase; font-weight: 600;">
+                                    {{ risk.severity }}
+                                </div>
+                                <div style="font-size: 12px; color: #FFFFFF; margin-top: 8px;">
+                                    {{ risk.impact }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </td>
+
+                    <td width="50%" class="gap-left">
+                        <div class="section-group">
+                            <h2 class="text-excellent"
+                                style="border-bottom: 2px solid #10B981; padding-bottom: 10px; margin-bottom: 20px; min-height: 2.5em; line-height: 1.25em;">
+                                Growth Opportunities
+                            </h2>
+
+                            {% for opp in report.risks_opportunities.opportunities[:3] %}
+                            <div class="card-bordered mb-4"
+                                style="border-left: 4px solid #10B981; min-height: 160px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div
+                                    style="font-size: 15px; font-weight: 700; color: #34D399; margin-bottom: 8px; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word; height: 42px; display: flex; align-items: flex-start; overflow: hidden;">
+                                    {{ opp.title }}
+                                </div>
+                                <div
+                                    style="font-size: 12px; color: #FFFFFF; text-transform: uppercase; font-weight: 600;">
+                                    {{ opp.effort }} • {{ opp.roi_indicator }}
+                                </div>
+                                <div style="font-size: 12px; color: #FFFFFF; margin-top: 8px;">
+                                    {{ opp.impact }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                <p><strong>Priority Action:</strong> {{ report.risks_opportunities.priority_action }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 5: PERFORMANCE ================= -->
+    <div class="page">
+        <div class="header-banner">
+            <div class="header-bg header-bg-tech"></div>
+        </div>
+
+        <div class="content-container">
+            <div class="page-title-block">
+                <h1 class="internal-title">Speed Analysis</h1>
+            </div>
+
+            <div class="section-group">
+                <table class="layout-grid mb-8">
                     <tr>
-                        <td class="assessment-col assessment-col--strengths">
-                            <h3>✓ What's Working</h3>
-                            {% for strength in report.seo.strengths[:3] %}
-                            <div class="assessment-item">
-                                <h4>{{ strength.split(':')[0] if ':' in strength else strength }}</h4>
-                                <p>{{ strength.split(':')[1] if ':' in strength else '' }}</p>
+                        <td width="35%" class="gap-right">
+                            <div class="highlight-box" style="text-align: center;">
+                                <div class="gauge-container mb-4">
+                                    <svg viewBox="0 0 100 100" width="100" height="100">
+                                        <circle cx="50" cy="50" r="45" class="gauge-bg" />
+                                        <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#3B82F6"
+                                            stroke-dasharray="283"
+                                            stroke-dashoffset="{{ 283 - (283 * (report.performance.score | default(0)) / 100) }}" />
+                                    </svg>
+                                    <div class="gauge-text"
+                                        style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                                        <div style="font-size: 28px; font-weight: 800; color: white;">{{
+                                            report.performance.score }}</div>
+                                    </div>
+                                </div>
+                                <div class="metric-label" style="color:white;">Avg Load Time</div>
+                                <div class="metric-big" style="font-size: 24px;">
+                                    {{ report.performance.core_web_vitals.lcp if report.performance.core_web_vitals else
+                                    'N/A' }}
+                                </div>
+                            </div>
+                        </td>
+                        <td width="65%">
+                            <div class="card-bordered h-full">
+                                <h3>Core Web Vitals</h3>
+
+                                <div class="mb-4">
+                                    <div
+                                        style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                                        <span>Mobile Performance Score</span>
+                                        {% set mobile_si =
+                                        report.appendix.core_web_vitals_detailed.mobile.speed_index|replace('ms','')|int
+                                        %}
+                                        {% set mobile_score = 100 - ((mobile_si - 1.5) / 19998.5 * 100)|round|int %}
+                                        {% set mobile_score = [0, [100, mobile_score]|min]|max %}
+                                        <strong>{{ mobile_score }}/100</strong>
+                                    </div>
+                                    <div class="bar-track">
+                                        <div class="bar-val bg-warning" style="width: {{ mobile_score }}%;"></div>
+                                    </div>
+                                </div>
+
+                                <p style="margin-top: 20px; font-size: 12px;">
+                                    {{ report.performance.business_impact }}
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section-group">
+                <h2>Core Web Vitals</h2>
+                <table class="layout-grid mb-8">
+                    <tr>
+                        <td width="25%" style="padding-right: 15px;">
+                            <div class="score-card-container border-critical">
+                                <div class="metric-label">LCP</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #F87171;">
+                                    {{ report.performance.core_web_vitals.lcp if report.performance.core_web_vitals else
+                                    'N/A' }}
+                                </div>
+                                <div style="font-size: 12px; color: #9CA3AF;">Target: &lt; 2.5s</div>
+                            </div>
+                        </td>
+                        <td width="25%" style="padding-right: 15px;">
+                            <div class="score-card-container border-warning">
+                                <div class="metric-label">FCP</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #FBBF24;">
+                                    {{ report.performance.core_web_vitals.fcp if report.performance.core_web_vitals else
+                                    'N/A' }}
+                                </div>
+                                <div style="font-size: 12px; color: #9CA3AF;">Target: &lt; 1.8s</div>
+                            </div>
+                        </td>
+                        <td width="25%" style="padding-right: 15px;">
+                            <div class="score-card-container border-excellent">
+                                <div class="metric-label">CLS</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #34D399;">
+                                    {{ report.performance.core_web_vitals.cls if report.performance.core_web_vitals else
+                                    'N/A' }}
+                                </div>
+                                <div style="font-size: 12px; color: #9CA3AF;">Target: &lt; 0.1</div>
+                            </div>
+                        </td>
+                        <td width="25%">
+                            <div class="score-card-container border-critical">
+                                <div class="metric-label">TBT</div>
+                                <div style="font-size: 24px; font-weight: 800; color: #F87171;">
+                                    {{ report.performance.core_web_vitals.tbt if report.performance.core_web_vitals else
+                                    'N/A' }}
+                                </div>
+                                <div style="font-size: 12px; color: #9CA3AF;">Target: &lt; 200ms</div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section-group">
+                <h2>Top Speed Issues</h2>
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th width="15%">Severity</th>
+                            <th width="60%">Issue Description</th>
+                            <th width="25%">Potential Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto',
+                        'performance')
+                        | list)[:5] %}
+                        <tr>
+                            <td>
+                                <span class="badge badge-{{ issue.severity }}"
+                                    style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">
+                                    {% if issue.severity == 'critical' %}
+                                    Critical
+                                    {% elif issue.severity == 'high' %}
+                                    <span style="color: #F87171;">High</span>
+                                    {% elif issue.severity == 'medium' %}
+                                    <span style="color: #FBBF24;">Medium</span>
+                                    {% else %}
+                                    <span style="color: #3B82F6;">Low</span>
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td>{{ issue.description }}</td>
+                            <td style="color: var(--color-primary); font-weight: 700;">{{ issue.savings | default('See
+                                description') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 6: SEO FOUNDATIONS ================= -->
+    <div class="page">
+        <div class="header-banner">
+            <div class="header-bg header-bg-code"></div>
+        </div>
+
+        <div class="content-container">
+            <div class="page-title-block">
+                <h1 class="internal-title">Search Visibility</h1>
+            </div>
+
+            <div class="section-group">
+                <table class="layout-grid mb-8">
+                    <tr>
+                        <td width="40%" class="gap-right">
+                            <div class="highlight-box-large" style="text-align: center;">
+                                <div class="gauge-container mb-2" style="width: 140px; height: 140px;">
+                                    <svg viewBox="0 0 100 100" width="140" height="140">
+                                        <circle cx="50" cy="50" r="45" class="gauge-bg" />
+                                        <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#10B981"
+                                            stroke-dasharray="283"
+                                            stroke-dashoffset="{{ 283 - (283 * (report.seo.score | default(0)) / 100) }}" />
+                                    </svg>
+                                    <div class="gauge-text"
+                                        style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                                        <div style="font-size: 38px; font-weight: 800; color: white;">{{
+                                            report.seo.score }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="metric-label" style="color:white; font-size: 14px; margin-top: 10px;">Health
+                                    Score</div>
+                            </div>
+                        </td>
+                        <td width="60%">
+                            <h3>Strengths vs Weaknesses</h3>
+                            <table width="100%">
+                                <tr>
+                                    <td width="50%" valign="top" style="padding-right: 15px;">
+                                        <div
+                                            style="border-bottom: 2px solid #10B981; margin-bottom: 10px; font-size: 12px; font-weight: 700; color: #34D399;">
+                                            STRENGTHS
+                                        </div>
+                                        {% for item in report.seo.strengths[:2] %}
+                                        <div class="check-list-item">
+                                            <span class="check-icon" style="color:#34D399;">✓</span>
+                                            <span class="check-text">{{ item }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    </td>
+                                    <td width="50%" valign="top">
+                                        <div
+                                            style="border-bottom: 2px solid #EF4444; margin-bottom: 10px; font-size: 12px; font-weight: 700; color: #F87171;">
+                                            WEAKNESSES
+                                        </div>
+                                        {% for weakness in report.seo.weaknesses[:2] %}
+                                        <div class="check-list-item">
+                                            <span class="check-icon" style="color:#F87171;">!</span>
+                                            <span class="check-text">{{ weakness }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section-group">
+                <h2>Meta Tag Analysis</h2>
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th width="15%">Severity</th>
+                            <th width="60%">Issue Description</th>
+                            <th width="25%">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto', 'seo') |
+                        list)[:5] %}
+                        <tr>
+                            <td>
+                                <span class="badge badge-{{ issue.severity }}"
+                                    style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">
+                                    {% if issue.severity == 'critical' %}
+                                    Critical
+                                    {% elif issue.severity == 'high' %}
+                                    <span style="color: #F87171;">High</span>
+                                    {% elif issue.severity == 'medium' %}
+                                    <span style="color: #FBBF24;">Medium</span>
+                                    {% else %}
+                                    <span style="color: #3B82F6;">Low</span>
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td>{{ issue.description }}</td>
+                            <td>{{ issue.location }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 7: UX & CONVERSION ================= -->
+    <div class="page">
+        <div class="header-banner">
+            <div class="header-bg"></div>
+        </div>
+
+        <div class="content-container">
+            <div class="page-title-block">
+                <h1 class="internal-title">User Experience</h1>
+            </div>
+
+            <div class="section-group">
+                <div class="card-bordered mb-8"
+                    style="border-left: 4px solid #F59E0B; display: flex; align-items: center;">
+                    <div class="gauge-container" style="width: 80px; height: 80px; margin: 0 30px 0 0;">
+                        <svg viewBox="0 0 100 100" width="80" height="80">
+                            <circle cx="50" cy="50" r="45" class="gauge-bg-dark" />
+                            <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#F59E0B" stroke-dasharray="283"
+                                stroke-dashoffset="{{ 283 - (283 * (report.ux.score | default(0)) / 100) }}" />
+                        </svg>
+                        <div class="gauge-text"
+                            style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                            <div style="font-size: 20px; font-weight: 800; color: #FFFFFF;">{{ report.ux.score }}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>User Experience Analysis</h3>
+                        <p style="margin: 0;">{{ report.ux.headline }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <table class="layout-grid">
+                    <tr>
+                        <td width="50%" class="gap-right">
+                            <h2>Conversion Blockers</h2>
+                            {% for blocker in report.ux.conversion_blockers[:3] %}
+                            <div class="check-list-item">
+                                <span class="check-icon" style="color: var(--color-accent);">!</span>
+                                <span class="check-text">{{ blocker }}</span>
                             </div>
                             {% endfor %}
                         </td>
-                        <td class="assessment-col assessment-col--weaknesses">
-                            <h3>⚠ What Needs Fixing</h3>
-                            {% for risk in report.risks_opportunities.top_risks[:3] %}
-                            <div class="assessment-item">
-                                <h4>{{ risk.title }}</h4>
-                                <p style="font-size: 12px; color: #9CA3AF;">{{ risk.severity }}</p>
-                                <p>{{ risk.impact }}</p>
+                        <td width="50%">
+                            <h2>Accessibility Checklist</h2>
+                            {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto',
+                            'accessibility') | list)[:3] %}
+                            <div class="check-list-item">
+                                <span class="check-icon" style="color: #F87171;">!</span>
+                                <span class="check-text">{{ issue.description }}</span>
                             </div>
                             {% endfor %}
+
+                            <div style="margin-top: 24px;">
+                                <div class="metric-label" style="margin-bottom: 6px;">User Experience Rating</div>
+                                <p style="font-size: 14px; color: var(--color-text-main); margin: 8px 0;">{{
+                                    report.ux.user_experience_rating }}</p>
+                                <p style="font-size: 12px; color: var(--color-text-muted); margin: 0;">{{
+                                    report.ux.trust_signals }}</p>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -497,46 +1524,600 @@
         </div>
     </div>
 
-    <!-- PAGE 4: FINAL RECOMMENDATION -->
+    <!-- ================= PAGE 7: TECHNICAL HEALTH ================= -->
     <div class="page">
-        <div class="header-banner"></div>
+        <div class="header-banner">
+            <div class="header-bg header-bg-code"></div>
+        </div>
+
+        <div class="content-container">
+            <div class="page-title-block">
+                <h1 class="internal-title">Technical Health</h1>
+            </div>
+
+            <div class="section-group">
+                <!-- Redesigned Top Section -->
+                <table class="layout-grid mb-8">
+                    <tr>
+                        <td width="50%" class="gap-right" style="padding-bottom: 20px;">
+                            <div class="highlight-box" style="height: 200px; display: table; width: 100%; padding: 0;">
+                                <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                                    <div class="metric-label"
+                                        style="color:white; font-size: 13px; margin-bottom: 8px; opacity: 0.8;">Health
+                                        Score
+                                    </div>
+                                    <div style="position: relative; width: 120px; height: 120px; margin: 0 auto;">
+                                        <svg viewBox="0 0 100 100" width="120" height="120">
+                                            <circle cx="50" cy="50" r="45" class="gauge-bg" />
+                                            <circle cx="50" cy="50" r="45" class="gauge-value" stroke="#8B5CF6"
+                                                stroke-dasharray="283"
+                                                stroke-dashoffset="{{ 283 - (283 * (report.technical.score | default(0)) / 100) }}" />
+                                        </svg>
+                                        <div class="gauge-text"
+                                            style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center;">
+                                            <div class="gauge-value-text"
+                                                style="font-size: 28px; font-weight: 800; color: white;">{{
+                                                report.technical.score }}</div>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 11px; color: #D1D5DB; margin-top: 8px;">{{
+                                        report.technical.health_status | default('System Status') }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td width="50%" class="gap-left" style="padding-bottom: 20px;">
+                            <div class="card-bordered"
+                                style="height: 200px; border-bottom: 4px solid #EF4444; display: table; width: 100%; padding: 0;">
+                                <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                                    <div class="metric-label" style="font-size: 13px; margin-bottom: 5px;">Critical
+                                        Issues
+                                    </div>
+                                    <div class="metric-big text-critical" style="font-size: 48px; margin-bottom: 0;">{{
+                                        (report.appendix.all_issues_table | default([]))|selectattr('category',
+                                        'equalto',
+                                        'security')|list|length + (report.appendix.all_issues_table |
+                                        default([]))|selectattr('category', 'equalto', 'technical')|list|length }}</div>
+                                    <div style="font-size: 11px; color: #9CA3AF; margin-top: 5px;">Security + Technical
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="card-bordered"
+                                style="height: 150px; border-bottom: 4px solid #F59E0B; display: table; width: 100%; padding: 0;">
+                                <div style="display: table-cell; vertical-align: middle; text-align: center;">
+                                    <div class="metric-label" style="font-size: 13px; margin-bottom: 5px;">Total Issues
+                                        Found</div>
+                                    <div class="metric-big text-warning" style="font-size: 48px; margin-bottom: 0;">{{
+                                        (report.appendix.all_issues_table | default([]))|length }}</div>
+                                    <div style="font-size: 11px; color: #9CA3AF; margin-top: 5px;">Across All Categories
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section-group">
+                <h2>Critical Technical Issues</h2>
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th width="15%">Severity</th>
+                            <th width="50%">Issue Description</th>
+                            <th width="35%">Location / Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for issue in report.technical.critical_issues[:3] %}
+                        <tr>
+                            <td><span class="badge-critical"
+                                    style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">High</span></td>
+                            <td>{{ issue }}</td>
+                            <td>Site-wide</td>
+                        </tr>
+                        {% endfor %}
+                        {% if not report.technical.critical_issues %}
+                        <tr>
+                            <td><span class="badge-critical"
+                                    style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">Critical</span></td>
+                            <td>Mixed Content (HTTP/HTTPS)</td>
+                            <td>Site-wide Security Warning</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge-warning"
+                                    style="padding: 4px 8px; border-radius: 4px; font-size: 11px;">High</span></td>
+                            <td>Duplicate Meta Descriptions</td>
+                            <td>42 Pages</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- ================= PAGE 8: PATCH VS REDESIGN ================= -->
+    <div class="page">
+        <div class="header-banner">
+            <div class="header-bg"></div>
+        </div>
+
+        <div class="content-container">
+            <div class="page-title-block">
+                <h1 class="internal-title">Path Forward: {{ report.patch_vs_redesign.headline | default('Patch vs
+                    Redesign') }}</h1>
+            </div>
+
+            <div class="section-group">
+                <table class="layout-grid">
+                    <tr>
+                        <td width="50%" class="gap-right">
+                            <!-- Patch Option -->
+                            <div class="card-bordered" style="border-top: 6px solid #3B82F6;">
+                                <h3 style="color: #3B82F6; font-size: 20px;">Option A: Patch & Improve</h3>
+                                <p style="font-size: 13px; color: #9CA3AF; margin-bottom: 24px;">Fix critical errors and
+                                    optimize current codebase.</p>
+
+                                <div class="mb-4">
+                                    <div
+                                        style="font-weight: 700; font-size: 13px; text-transform: uppercase; margin-bottom: 8px;">
+                                        Scope of Work</div>
+                                    <ul style="font-size: 13px; padding-left: 20px; color: #D1D5DB; line-height: 1.6;">
+                                        {% for example in report.patch_vs_redesign.patchable.examples[:3] %}
+                                        <li>{{ example }}</li>
+                                        {% endfor %}
+                                        {% if not report.patch_vs_redesign.patchable.examples %}
+                                        <li>No patchable issues identified</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                                <div style="background: #171717; padding: 16px; border-radius: 4px; margin-top: 20px;">
+                                    <div
+                                        style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; word-wrap: break-word;">
+                                        <span style="flex-shrink: 0; margin-right: 8px;">Timeline:</span>
+                                        <strong
+                                            style="word-wrap: break-word; overflow-wrap: break-word; text-align: right;">{{
+                                            report.patch_vs_redesign.patchable.time_estimate | default('2-3 Weeks')
+                                            }}</strong>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                                        <span style="flex-shrink: 0; margin-right: 8px;">Issues Fixed:</span>
+                                        <strong
+                                            style="color: #3B82F6; word-wrap: break-word; overflow-wrap: break-word; text-align: right;">{{
+                                            report.patch_vs_redesign.patchable.count | default('N/A') }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td width="50%" class="gap-left">
+                            <!-- Redesign Option -->
+                            <div class="card-bordered"
+                                style="border-top: 6px solid #FFFFFF; background-color: #0F0F0F; position: relative; overflow: hidden;">
+                                <div
+                                    style="position: absolute; top: 15px; right: -30px; background: #10B981; color: white; padding: 5px 30px; transform: rotate(45deg); font-size: 10px; font-weight: 700;">
+                                    {{ report.patch_vs_redesign.recommendation_tier | upper }}</div>
+
+                                <h3 style="color: #FFFFFF; font-size: 20px;">Option B: Strategic Redesign</h3>
+                                <p style="font-size: 13px; color: #9CA3AF; margin-bottom: 24px;">Rebuild on modern stack
+                                    for
+                                    long-term growth.</p>
+
+                                <div class="mb-4">
+                                    <div
+                                        style="font-weight: 700; font-size: 13px; text-transform: uppercase; margin-bottom: 8px;">
+                                        Scope of Work</div>
+                                    <ul style="font-size: 13px; padding-left: 20px; color: #D1D5DB; line-height: 1.6;">
+                                        {% for example in report.patch_vs_redesign.structural.examples[:3] %}
+                                        <li>{{ example }}</li>
+                                        {% endfor %}
+                                        {% if not report.patch_vs_redesign.structural.examples %}
+                                        <li>No structural issues identified</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                                <div
+                                    style="background: #171717; border: 1px solid #333; padding: 16px; border-radius: 4px; margin-top: 20px;">
+                                    <div
+                                        style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; word-wrap: break-word;">
+                                        <span style="flex-shrink: 0; margin-right: 8px;">Timeline:</span>
+                                        <strong
+                                            style="word-wrap: break-word; overflow-wrap: break-word; text-align: right;">{{
+                                            report.patch_vs_redesign.structural.time_estimate | default('6-8 Weeks')
+                                            }}</strong>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                                        <span style="flex-shrink: 0; margin-right: 8px;">Issues Fixed:</span>
+                                        <strong
+                                            style="color: #10B981; word-wrap: break-word; overflow-wrap: break-word; text-align: right;">{{
+                                            report.patch_vs_redesign.structural.count | default('N/A') }}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- ================= PAGE 9: FINAL RECOMMENDATION ================= -->
+    <div class="page">
+        <div class="header-banner">
+            <div class="header-bg header-bg-tech"></div>
+        </div>
 
         <div class="content-container">
             <div class="page-title-block">
                 <h1 class="internal-title">Final Recommendation</h1>
             </div>
 
-            <div class="card-bordered" style="border-left: 6px solid #F472B6;">
-                <h3 style="color: #F472B6;">Recommended Strategy: {{ report.final_recommendation.headline }}</h3>
-                <p>{{ report.final_recommendation.recommended_approach }}</p>
-            </div>
-
             <div class="section-group">
-                <h2>Expected Outcomes</h2>
-                {% for outcome in report.final_recommendation.expected_outcomes[:3] %}
-                <div class="check-list-item">
-                    <span class="check-icon" style="color:#34D399;">✓</span> {{ outcome }}
+                <div
+                    style="border-left: 6px solid #F25C78; padding: 16px; background: #0A0A0A; border: 1px solid #333; margin-bottom: 24px;">
+                    <h3 style="color: #F472B6; font-size: 20px; margin-bottom: 8px;">Recommended Strategy: {{
+                        report.final_recommendation.headline }}</h3>
+                    <p style="margin: 0; color: #D1D5DB; font-size: 13px;">{{
+                        report.final_recommendation.recommended_approach }}</p>
                 </div>
-                {% endfor %}
+            </div>
+
+            <table class="layout-grid">
+                <tr>
+                    <td width="60%" class="gap-right">
+                        <h2>Expected Outcomes</h2>
+                        {% for outcome in report.final_recommendation.expected_outcomes[:3] %}
+                        <div class="check-list-item"><span class="check-icon" style="color:#34D399;">✓</span> {{
+                            outcome
+                            }}</div>
+                        {% endfor %}
+                        {% if not report.final_recommendation.expected_outcomes %}
+                        <div class="check-list-item"><span class="check-icon" style="color:#34D399;">✓</span>
+                            Improved
+                            overall performance and user experience</div>
+                        {% endif %}
+
+                        <div style="margin-top: 40px;">
+                            <h2>Next Steps</h2>
+                            <ol style="padding-left: 20px; color: #D1D5DB; line-height: 1.8; font-size: 14px;">
+                                {% for step in report.final_recommendation.next_steps[:3] %}
+                                <li>{{ step }}</li>
+                                {% endfor %}
+                                {% if not report.final_recommendation.next_steps %}
+                                <li>Contact us to discuss implementation strategy</li>
+                                {% endif %}
+                            </ol>
+                        </div>
+                    </td>
+
+                    <td width="40%">
+                        <div class="highlight-box">
+                            <h3
+                                style="border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 12px; margin-bottom: 20px;">
+                                Investment Estimate</h3>
+
+                            <div style="margin-bottom: 30px;">
+                                <div class="metric-label" style="color:white; opacity:0.7;">Estimated Cost</div>
+                                <div
+                                    style="font-size: 28px; font-weight: 800; color: white; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;">
+                                    {{ report.final_recommendation.estimated_investment }}</div>
+                            </div>
+
+                            <div style="margin-bottom: 30px;">
+                                <div class="metric-label" style="color:white; opacity:0.7;">Duration</div>
+                                <div
+                                    style="font-size: 20px; font-weight: 600; color: white; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;">
+                                    {{ report.final_recommendation.duration | default('6 Weeks') }}</div>
+                            </div>
+
+                            <a href="#"
+                                style="display: block; background: #F25C78; color: white; text-align: center; padding: 16px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-top: 32px; text-transform: uppercase; letter-spacing: 1px; font-size: 12px;">Schedule
+                                Kickoff Call</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+    <!-- ================= PAGE 10: APPENDIX - TECHNICAL REFERENCE ================= -->
+    <div class="page appendix-page-break">
+        <div class="header-banner">
+            <div class="header-bg header-bg-code"></div>
+        </div>
+
+        <div class="content-container appendix-content-limit">
+            <div class="page-title-block">
+                <h1 class="internal-title">Appendix: {{ report.appendix.headline | default('Technical Reference') }}
+                </h1>
+            </div>
+
+            <h2>Complete Issues Breakdown</h2>
+            <p style="font-size: 13px; color: #9CA3AF; margin-bottom: 20px;">
+                All {{ (report.appendix.all_issues_table | default([]))|length }} issues identified during the scan,
+                organized by category and severity.
+            </p>
+
+            <div class="appendix-table-limit">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th width="12%">Category</th>
+                            <th width="12%">Severity</th>
+                            <th width="45%">Issue Description</th>
+                            <th width="15%">Fix Type</th>
+                            <th width="16%">Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for issue in (report.appendix.all_issues_table | sort(attribute='severity',
+                        reverse=true))[:10] %}
+                        <tr style="border-bottom: 1px solid #222;">
+                            <td style="padding: 6px 4px;">
+                                <span style="font-size: 10px; text-transform: capitalize; color: var(--color-primary);">
+                                    {{ issue.category }}
+                                </span>
+                            </td>
+                            <td style="padding: 6px 4px;">
+                                {% if issue.severity == 'critical' %}
+                                <span class="badge-critical"
+                                    style="padding: 3px 6px; border-radius: 4px; font-size: 10px;">Critical</span>
+                                {% elif issue.severity == 'high' %}
+                                <span class="badge-critical"
+                                    style="padding: 3px 6px; border-radius: 4px; font-size: 10px;">High</span>
+                                {% elif issue.severity == 'medium' %}
+                                <span class="badge-warning"
+                                    style="padding: 3px 6px; border-radius: 4px; font-size: 10px;">Medium</span>
+                                {% else %}
+                                <span class="badge-good"
+                                    style="padding: 3px 6px; border-radius: 4px; font-size: 10px;">Low</span>
+                                {% endif %}
+                            </td>
+                            <td style="font-size: 11px; padding: 6px 4px; line-height: 1.3;">{{ issue.description }}
+                            </td>
+                            <td style="padding: 6px 4px;">
+                                <span
+                                    style="font-size: 10px; text-transform: capitalize; {% if issue.fix_type == 'structural' %}color: #F87171;{% elif issue.fix_type == 'performance' %}color: #FBBF24;{% else %}color: #34D399;{% endif %}">
+                                    {{ issue.fix_type }}
+                                </span>
+                            </td>
+                            <td style="font-size: 10px; color: #9CA3AF; padding: 6px 4px;">{{ issue.location }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% if not report.appendix.all_issues_table or (report.appendix.all_issues_table |
+                        default([]))|length == 0 %}
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #34D399; padding: 40px;">
+                                ✓ No issues found during scan
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    </div>
+
+    <!-- ================= PAGE 11: APPENDIX - SCAN METADATA ================= -->
+    <div class="page">
+        <div class="header-banner">
+            <div class="header-bg header-bg-tech"></div>
+        </div>
+
+        <div class="content-container">
+            <div class="page-title-block">
+                <h1 class="internal-title">Appendix: Scan Metadata</h1>
             </div>
 
             <div class="section-group">
-                <h2>Next Steps</h2>
-                <ol style="padding-left: 20px; color: #D1D5DB; line-height: 1.8;">
-                    {% for step in report.final_recommendation.next_steps[:4] %}
-                    <li>{{ step }}</li>
-                    {% endfor %}
-                </ol>
+                <h2 style="margin-bottom: 10px;">Detailed Scores Breakdown</h2>
+                <table class="layout-grid mb-4">
+                    <tr>
+                        <td width="50%" class="gap-right">
+                            <div class="card-bordered" style="padding: 15px;">
+                                <h3 style="margin-bottom: 12px; font-size: 16px;">Category Scores</h3>
+                                <table width="100%" style="font-size: 12px;">
+                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                        <td style="padding: 6px 0; color: #9CA3AF;">Overall Score</td>
+                                        <td
+                                            style="padding: 6px 0; text-align: right; font-weight: 700; color: #FFFFFF;">
+                                            {{ report.appendix.detailed_scores.overall |
+                                            default(report.executive_summary.overall_score) }}/100
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                        <td style="padding: 6px 0; color: #9CA3AF;">Technical Health</td>
+                                        <td
+                                            style="padding: 6px 0; text-align: right; font-weight: 700; color: #8B5CF6;">
+                                            {{ report.appendix.detailed_scores.technical |
+                                            default(report.technical.score)
+                                            }}/100
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                        <td style="padding: 6px 0; color: #9CA3AF;">Performance</td>
+                                        <td
+                                            style="padding: 6px 0; text-align: right; font-weight: 700; color: #3B82F6;">
+                                            {{ report.appendix.detailed_scores.performance |
+                                            default(report.performance.score) }}/100
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                        <td style="padding: 6px 0; color: #9CA3AF;">SEO</td>
+                                        <td
+                                            style="padding: 6px 0; text-align: right; font-weight: 700; color: #10B981;">
+                                            {{ report.appendix.detailed_scores.seo | default(report.seo.score)
+                                            }}/100
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid var(--border-color);">
+                                        <td style="padding: 6px 0; color: #9CA3AF;">User Experience</td>
+                                        <td
+                                            style="padding: 6px 0; text-align: right; font-weight: 700; color: #F59E0B;">
+                                            {{ report.appendix.detailed_scores.ux | default(report.ux.score) }}/100
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 6px 0; color: #9CA3AF;">Accessibility</td>
+                                        <td
+                                            style="padding: 6px 0; text-align: right; font-weight: 700; color: #34D399;">
+                                            {{ report.appendix.detailed_scores.accessibility | default('N/A') }}{%
+                                            if
+                                            report.appendix.detailed_scores.accessibility %}/100{% endif %}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td width="50%" class="gap-left">
+                            <div class="card-bordered" style="padding: 15px;">
+                                <h3 style="margin-bottom: 12px; font-size: 16px;">Core Web Vitals Detail</h3>
+                                <div style="margin-bottom: 16px;">
+                                    <div
+                                        style="font-size: 11px; font-weight: 700; color: var(--color-primary); margin-bottom: 6px;">
+                                        Mobile Performance</div>
+                                    <table width="100%" style="font-size: 11px;">
+                                        <tr style="border-bottom: 1px solid #222;">
+                                            <td style="padding: 4px 0; color: #9CA3AF;">LCP</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #F87171;">{{
+                                                report.appendix.core_web_vitals_detailed.mobile.lcp | default('N/A')
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #222;">
+                                            <td style="padding: 4px 0; color: #9CA3AF;">FCP</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #FBBF24;">{{
+                                                report.appendix.core_web_vitals_detailed.mobile.fcp | default('N/A')
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #222;">
+                                            <td style="padding: 4px 0; color: #9CA3AF;">CLS</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #34D399;">{{
+                                                report.appendix.core_web_vitals_detailed.mobile.cls | default('N/A')
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #222;">
+                                            <td style="padding: 4px 0; color: #9CA3AF;">TBT</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #F87171;">{{
+                                                report.appendix.core_web_vitals_detailed.mobile.tbt | default('N/A')
+                                                }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 4px 0; color: #9CA3AF;">Speed Index</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #F87171;">{{
+                                                report.appendix.core_web_vitals_detailed.mobile.speed_index |
+                                                default('N/A')
+                                                }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <div
+                                        style="font-size: 11px; font-weight: 700; color: var(--color-primary); margin-bottom: 6px;">
+                                        Desktop Performance</div>
+                                    <table width="100%" style="font-size: 11px;">
+                                        <tr style="border-bottom: 1px solid #222;">
+                                            <td style="padding: 4px 0; color: #9CA3AF;">LCP</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #34D399;">{{
+                                                report.appendix.core_web_vitals_detailed.desktop.lcp |
+                                                default('N/A') }}
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #222;">
+                                            <td style="padding: 4px 0; color: #9CA3AF;">FCP</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #34D399;">{{
+                                                report.appendix.core_web_vitals_detailed.desktop.fcp |
+                                                default('N/A') }}
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #222;">
+                                            <td style="padding: 4px 0; color: #9CA3AF;">CLS</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #FBBF24;">{{
+                                                report.appendix.core_web_vitals_detailed.desktop.cls |
+                                                default('N/A') }}
+                                            </td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid #222;">
+                                            <td style="padding: 4px 0; color: #9CA3AF;">TBT</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #34D399;">{{
+                                                report.appendix.core_web_vitals_detailed.desktop.tbt |
+                                                default('N/A') }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 4px 0; color: #9CA3AF;">Speed Index</td>
+                                            <td style="padding: 4px 0; text-align: right; color: #34D399;">{{
+                                                report.appendix.core_web_vitals_detailed.desktop.speed_index |
+                                                default('N/A') }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
-            <div class="highlight-box" style="margin-top: 40px;">
-                <h3>Investment Estimate</h3>
-                <div class="metric-label">Estimated Cost</div>
-                <div class="metric-big" style="color: white;">{{ report.final_recommendation.estimated_investment }}
+            <div class="scan-meta-shift">
+                <h2 style="margin-top: 10px; margin-bottom: 10px; font-size: 20px;">Scan Information</h2>
+                <div class="card-bordered" style="padding: 15px;">
+                    <div
+                        style="font-size: 13px; color: #9CA3AF; margin-bottom: 8px; font-weight: 700; text-transform: uppercase;">
+                        Tools & Methdology</div>
+                    <div style="color: #FFFFFF;">
+                        {% if report.appendix.scan_metadata.tools_used %}
+                        {% for tool in report.appendix.scan_metadata.tools_used %}
+                        <span
+                            style="display: inline-block; background: #262626; border: 1px solid #404040; padding: 6px 12px; border-radius: 6px; margin-right: 6px; margin-bottom: 6px; font-size: 12px; font-weight: 600;">
+                            {{ tool }}
+                        </span>
+                        {% endfor %}
+                        {% else %}
+                        <span
+                            style="display: inline-block; background: #262626; border: 1px solid #404040; padding: 6px 12px; border-radius: 6px; margin-right: 6px; margin-bottom: 6px; font-size: 12px; font-weight: 600;">
+                            PageSpeed Insights
+                        </span>
+                        <span
+                            style="display: inline-block; background: #262626; border: 1px solid #404040; padding: 6px 12px; border-radius: 6px; margin-right: 6px; margin-bottom: 6px; font-size: 12px; font-weight: 600;">
+                            Google Lighthouse
+                        </span>
+                        <span
+                            style="display: inline-block; background: #262626; border: 1px solid #404040; padding: 6px 12px; border-radius: 6px; margin-right: 6px; margin-bottom: 6px; font-size: 12px; font-weight: 600;">
+                            Security Headers Analysis
+                        </span>
+                        <span
+                            style="display: inline-block; background: #262626; border: 1px solid #404040; padding: 6px 12px; border-radius: 6px; margin-right: 6px; margin-bottom: 6px; font-size: 12px; font-weight: 600;">
+                            Semantic HTML Crawler
+                        </span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 
 </body>
 
