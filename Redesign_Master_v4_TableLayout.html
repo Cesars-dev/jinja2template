@@ -145,7 +145,7 @@
             min-height: 11in;
             background: #0D0D0D;
             color: var(--color-text-main);
-            page-break-after: always;
+            /* REMOVED: page-break-after: always - causes blank pages from 1px overflow */
             /* REMOVED: page-break-inside: avoid - causes aggressive pagination */
             position: relative;
             margin: 0 auto 20px auto;
@@ -1847,7 +1847,7 @@
                     </thead>
                     <tbody>
                         {% for issue in (report.appendix.all_issues_table | sort(attribute='severity',
-                        reverse=true))[:10] %}
+                        reverse=true))[:12] %}
                         <tr style="border-bottom: 1px solid #222;">
                             <td style="padding: 6px 4px;">
                                 <span style="font-size: 10px; text-transform: capitalize; color: var(--color-primary);">
