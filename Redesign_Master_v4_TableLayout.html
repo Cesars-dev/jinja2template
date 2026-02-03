@@ -1054,7 +1054,7 @@
 
             <div class="section-group">
                 <h2>Key Findings</h2>
-                <div style="max-height: 180px; overflow: hidden;"> <!-- Issue #2: Hardcoded height limit -->
+                <div style="max-height: 140px; overflow: hidden;"> <!-- V4: Reduced from 180px to 140px -->
                     {% for item in report.executive_summary.key_findings %}
                     <div class="check-list-item">
                         <span class="check-icon" style="color: var(--color-accent);">!</span>
@@ -1537,10 +1537,11 @@
             </div>
 
             <div class="section-group">
-                <!-- Redesigned Top Section -->
+                <!-- V4: Redesigned Top Section - 3 Columns (was 2 rows) -->
                 <table class="layout-grid mb-8">
                     <tr>
-                        <td width="50%" class="gap-right" style="padding-bottom: 20px;">
+                        <!-- Column 1: Health Score -->
+                        <td width="33.33%" class="gap-right" style="padding-bottom: 20px;">
                             <div class="highlight-box" style="height: 200px; display: table; width: 100%; padding: 0;">
                                 <div style="display: table-cell; vertical-align: middle; text-align: center;">
                                     <div class="metric-label"
@@ -1566,35 +1567,33 @@
                                 </div>
                             </div>
                         </td>
-                        <td width="50%" class="gap-left" style="padding-bottom: 20px;">
+
+                        <!-- Column 2: Critical Issues -->
+                        <td width="33.33%" class="gap-right gap-left" style="padding-bottom: 20px;">
                             <div class="card-bordered"
-                                style="height: 200px; border-bottom: 4px solid #EF4444; display: table; width: 100%; padding: 0;">
-                                <div style="display: table-cell; vertical-align: middle; text-align: center;">
-                                    <div class="metric-label" style="font-size: 13px; margin-bottom: 5px;">Critical
-                                        Issues
-                                    </div>
-                                    <div class="metric-big text-critical" style="font-size: 48px; margin-bottom: 0;">{{
-                                        (report.appendix.all_issues_table | default([]))|selectattr('category',
-                                        'equalto',
-                                        'security')|list|length + (report.appendix.all_issues_table |
-                                        default([]))|selectattr('category', 'equalto', 'technical')|list|length }}</div>
-                                    <div style="font-size: 11px; color: #9CA3AF; margin-top: 5px;">Security + Technical
-                                    </div>
+                                style="height: 200px; border-bottom: 4px solid #EF4444; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <div class="metric-label" style="font-size: 13px; margin-bottom: 5px;">Critical
+                                    Issues
+                                </div>
+                                <div class="metric-big text-critical" style="font-size: 48px; margin-bottom: 0;">{{
+                                    (report.appendix.all_issues_table | default([]))|selectattr('category',
+                                    'equalto',
+                                    'security')|list|length + (report.appendix.all_issues_table |
+                                    default([]))|selectattr('category', 'equalto', 'technical')|list|length }}</div>
+                                <div style="font-size: 11px; color: #9CA3AF; margin-top: 5px;">Security + Technical
                                 </div>
                             </div>
                         </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
+
+                        <!-- Column 3: Total Issues -->
+                        <td width="33.33%" class="gap-left" style="padding-bottom: 20px;">
                             <div class="card-bordered"
-                                style="height: 150px; border-bottom: 4px solid #F59E0B; display: table; width: 100%; padding: 0;">
-                                <div style="display: table-cell; vertical-align: middle; text-align: center;">
-                                    <div class="metric-label" style="font-size: 13px; margin-bottom: 5px;">Total Issues
-                                        Found</div>
-                                    <div class="metric-big text-warning" style="font-size: 48px; margin-bottom: 0;">{{
-                                        (report.appendix.all_issues_table | default([]))|length }}</div>
-                                    <div style="font-size: 11px; color: #9CA3AF; margin-top: 5px;">Across All Categories
-                                    </div>
+                                style="height: 200px; border-bottom: 4px solid #F59E0B; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <div class="metric-label" style="font-size: 13px; margin-bottom: 5px;">Total Issues
+                                    Found</div>
+                                <div class="metric-big text-warning" style="font-size: 48px; margin-bottom: 0;">{{
+                                    (report.appendix.all_issues_table | default([]))|length }}</div>
+                                <div style="font-size: 11px; color: #9CA3AF; margin-top: 5px;">Across All Categories
                                 </div>
                             </div>
                         </td>
