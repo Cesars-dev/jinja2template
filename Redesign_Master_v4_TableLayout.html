@@ -1393,13 +1393,11 @@
                             {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto', 'seo')
                             | list)[:2] %}
                             <div class="card-bordered mb-4" style="border-left: 4px solid #FBBF24; padding: 16px;">
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                <div style="margin-bottom: 8px;">
                                     <span class="badge badge-{{ issue.severity }}"
                                         style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: #FBBF24; color: #000;">
                                         {{ issue.severity | capitalize }}
                                     </span>
-                                    <span style="font-size: 11px; color: #9CA3AF;">{{ issue.location }}</span>
                                 </div>
                                 <p style="font-size: 13px; color: #FFFFFF; margin: 0; line-height: 1.6;">{{
                                     issue.description }}</p>
