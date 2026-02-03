@@ -887,7 +887,7 @@
                 <h1 class="cover-title">SiteScan<br>Audit Report</h1>
                 <div
                     style="font-size: 32px; font-weight: 300; margin-top: 15px; color: #9CA3AF; border-top: 4px solid var(--color-accent); display: inline-block; padding-top: 10px;">
-                    2026
+                    {{ report.cover.scan_date[:4] }}
                 </div>
             </div>
         </div>
@@ -1054,7 +1054,7 @@
 
             <div class="section-group">
                 <h2>Key Findings</h2>
-                <div>
+                <div style="max-height: 180px; overflow: hidden;"> <!-- Issue #2: Hardcoded height limit -->
                     {% for item in report.executive_summary.key_findings %}
                     <div class="check-list-item">
                         <span class="check-icon" style="color: var(--color-accent);">!</span>
@@ -1115,16 +1115,11 @@
 
             <!-- Strategic Insights Group -->
             <div class="section-group">
-                <!-- Strategic Recommendation -->
+                <!-- V3: Strategic Recommendations - Option B (inline format) -->
                 <div class="strat-rec-box">
-                    <h3>Strategic Recommendation</h3>
-                    <p>{{ report.executive_summary.recommendation }}</p>
-                </div>
-
-                <!-- Strategic Insight -->
-                <div class="strat-rec-box" style="margin-top: 16px;">
-                    <h3>Strategic Insight</h3>
-                    <p>{{ report.executive_summary.headline }}</p>
+                    <h3>Strategic Recommendations</h3>
+                    <p><strong>{{ report.executive_summary.recommendation }}:</strong> {{
+                        report.executive_summary.headline }}</p>
                 </div>
             </div>
         </div>
