@@ -1052,7 +1052,7 @@
                 </p>
             </div>
 
-            <div class="section-group">
+            <div class="section-group" style="margin-bottom: 0;"> <!-- V5: Remove bottom margin -->
                 <h2>Key Findings</h2>
                 <div style="max-height: 140px; overflow: hidden;"> <!-- V4: Reduced from 180px to 140px -->
                     {% for item in report.executive_summary.key_findings %}
@@ -1192,7 +1192,7 @@
                 </tr>
             </table>
 
-            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+            <div style="margin-top: 0; padding-top: 0;"> <!-- V5: Dynamic placement - removed forced spacing -->
                 <p><strong>Priority Action:</strong> {{ report.risks_opportunities.priority_action }}</p>
             </div>
         </div>
@@ -1419,8 +1419,8 @@
                 </table>
             </div>
 
-            <div class="section-group">
-                <h2>Meta Tag Analysis</h2>
+            <div class="section-group" style="margin-bottom: 0; margin-top: 0;"> <!-- V5: Remove spacing -->\n <h2>Meta
+                    Tag Analysis</h2>
                 <table class="modern-table">
                     <thead>
                         <tr>
