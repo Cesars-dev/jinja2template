@@ -1357,14 +1357,15 @@
         </div>
 
         <div class="content-container">
-            <div class="page-title-block" style="text-align: center;">
-                <h1 class="internal-title" style="font-size: 48px;">SEO</h1>
-            </div>
-
             <div class="section-group">
                 <table class="layout-grid mb-8">
                     <tr>
-                        <td width="40%" class="gap-right">
+                        <!-- LEFT COLUMN: Title + Chart + Meta Tags -->
+                        <td width="40%" class="gap-right" valign="top">
+                            <!-- SEO Title -->
+                            <h1 style="font-size: 36px; margin-bottom: 20px; font-weight: 800;">SEO</h1>
+
+                            <!-- Health Chart -->
                             <div class="highlight-box-large" style="text-align: center;">
                                 <div class="gauge-container mb-2" style="width: 140px; height: 140px;">
                                     <svg viewBox="0 0 100 100" width="140" height="140">
@@ -1383,8 +1384,31 @@
                                 <div class="metric-label" style="color:white; font-size: 14px; margin-top: 10px;">Health
                                     Score</div>
                             </div>
+
+                            <!-- Meta Tag Analysis (below chart in same column) -->
+                            <h2
+                                style="margin-top: 30px; margin-bottom: 16px; color: #10B981; font-size: 18px; font-weight: 700; text-transform: uppercase;">
+                                Meta Tag Analysis</h2>
+
+                            {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto', 'seo')
+                            | list)[:2] %}
+                            <div class="card-bordered mb-4" style="border-left: 4px solid #FBBF24; padding: 16px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                    <span class="badge badge-{{ issue.severity }}"
+                                        style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: #FBBF24; color: #000;">
+                                        {{ issue.severity | capitalize }}
+                                    </span>
+                                    <span style="font-size: 11px; color: #9CA3AF;">{{ issue.location }}</span>
+                                </div>
+                                <p style="font-size: 13px; color: #FFFFFF; margin: 0; line-height: 1.6;">{{
+                                    issue.description }}</p>
+                            </div>
+                            {% endfor %}
                         </td>
-                        <td width="60%">
+
+                        <!-- RIGHT COLUMN: Strengths vs Weaknesses -->
+                        <td width="60%" valign="top">
                             <h3>Strengths vs Weaknesses</h3>
                             <table width="100%">
                                 <tr>
@@ -1417,26 +1441,6 @@
                         </td>
                     </tr>
                 </table>
-            </div>
-
-            <!-- Meta Tag Analysis - Redesigned as boxes below chart -->
-            <div class="section-group" style="margin-top: 0;">
-                <h2 style="margin-bottom: 16px;">Meta Tag Analysis</h2>
-
-                {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto', 'seo') | list)[:2]
-                %}
-                <div class="card-bordered mb-4" style="border-left: 4px solid #FBBF24; padding: 16px;">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                        <span class="badge badge-{{ issue.severity }}"
-                            style="padding: 4px 8px; border-radius: 4px; font-size: 11px; background: #FBBF24; color: #000;">
-                            {{ issue.severity | capitalize }}
-                        </span>
-                        <span style="font-size: 11px; color: #9CA3AF;">{{ issue.location }}</span>
-                    </div>
-                    <p style="font-size: 13px; color: #FFFFFF; margin: 0; line-height: 1.6;">{{ issue.description }}</p>
-                </div>
-                {% endfor %}
             </div>
         </div>
     </div>
