@@ -477,24 +477,31 @@
         .col-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
+            gap: 8px;
+            /* REDUCED from 12px */
+            margin-bottom: 14px;
+            /* REDUCED from 24px */
+            padding-bottom: 10px;
+            /* REDUCED from 16px */
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .col-header__icon {
-            font-size: 28px;
+            font-size: 22px;
+            /* REDUCED from 28px */
         }
 
         .col-header h3 {
             margin: 0;
-            font-size: 18px;
+            font-size: 16px;
+            /* REDUCED from 18px */
         }
 
         .assessment-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
+            margin-bottom: 12px;
+            /* REDUCED from 20px */
+            padding-bottom: 12px;
+            /* REDUCED from 20px */
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -505,22 +512,28 @@
         }
 
         .assessment-item h4 {
-            font-size: 14px;
-            margin-bottom: 4px;
+            font-size: 13px;
+            /* REDUCED from 14px */
+            margin-bottom: 3px;
+            /* REDUCED from 4px */
         }
 
         .assessment-item__meta {
-            font-size: 12px;
+            font-size: 11px;
+            /* REDUCED from 12px */
             color: var(--color-text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            /* REDUCED from 8px */
         }
 
         .assessment-item__impact {
-            font-size: 13px;
+            font-size: 12px;
+            /* REDUCED from 13px */
             color: var(--color-text-muted);
             font-style: italic;
             margin: 0;
-            line-height: 1.5;
+            line-height: 1.4;
+            /* REDUCED from 1.5 */
         }
 
         /* ==================== CARDS ==================== */
@@ -1330,7 +1343,7 @@
                     </thead>
                     <tbody>
                         {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto',
-                        'performance') | list)[:2] %}
+                        'Performance') | list)[:2] %}
                         <tr>
                             <td>
                                 <span class="badge badge-{{ issue.severity }}"
@@ -1397,7 +1410,7 @@
                                 style="margin-top: 30px; margin-bottom: 16px; color: #10B981; font-size: 18px; font-weight: 700; text-transform: uppercase;">
                                 Meta Tag Analysis</h2>
 
-                            {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto', 'seo')
+                            {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto', 'SEO')
                             | list)[:2] %}
                             <div class="card-bordered mb-4" style="border-left: 4px solid #FBBF24; padding: 16px;">
                                 <div style="margin-bottom: 8px;">
@@ -1497,7 +1510,7 @@
                         <td width="50%">
                             <h2>Accessibility Checklist</h2>
                             {% for issue in (report.appendix.all_issues_table | selectattr('category', 'equalto',
-                            'accessibility') | list)[:3] %}
+                            'Accessibility') | list)[:3] %}
                             <div class="check-list-item">
                                 <span class="check-icon" style="color: #F87171;">!</span>
                                 <span class="check-text">{{ issue.description }}</span>
@@ -2102,17 +2115,4 @@
                             Security Headers Analysis
                         </span>
                         <span
-                            style="display: inline-block; background: #262626; border: 1px solid #404040; padding: 6px 12px; border-radius: 6px; margin-right: 6px; margin-bottom: 6px; font-size: 12px; font-weight: 600;">
-                            Semantic HTML Crawler
-                        </span>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</body>
-
-</html>
+       
