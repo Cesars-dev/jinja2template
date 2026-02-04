@@ -1063,63 +1063,61 @@
     </div>
 
     <!-- ================= PAGE 3: STRATEGIC ASSESSMENT ================= -->
-    <div class="page">
-        <div class="header-banner">
-            <div class="header-bg"></div>
+  <!-- ================= PAGE 3: STRATEGIC ASSESSMENT ================= -->
+<div class="page">
+    <div class="header-banner">
+        <div class="header-bg"></div>
+    </div>
+
+    <div class="content-container">
+        <div class="page-title-block">
+            <h1 class="internal-title">Strategic Assessment</h1>
         </div>
 
-        <div class="content-container">
-            <div class="page-title-block">
-                <h1 class="internal-title">Strategic Assessment</h1>
-            </div>
-
-            <!-- Strengths vs Weaknesses Split -->
-            <div class="section-group">
-                <div class="split-assessment">
-                    <div class="assessment-col assessment-col--strengths">
-                        <div class="col-header">
-                            <span class="col-header__icon">✓</span>
-                            <h3>What's Working</h3>
-                        </div>
-
-                        {% for strength in report.seo.strengths[:2] %}
-                        <div class="assessment-item">
-                            <h4>{{ strength.split(':')[0] if ':' in strength else strength }}</h4>
-                            <p class="assessment-item__impact">
-                                {{ strength.split(':')[1] if ':' in strength else strength }}
-                            </p>
-                        </div>
-                        {% endfor %}
+        <!-- Strengths vs Weaknesses Split -->
+        <div class="section-group">
+            <div class="split-assessment">
+                <div class="assessment-col assessment-col--strengths">
+                    <div class="col-header">
+                        <span class="col-header__icon">✓</span>
+                        <h3>What's Working</h3>
                     </div>
 
-                    <div class="assessment-col assessment-col--weaknesses">
-                        <div class="col-header">
-                            <span class="col-header__icon">⚠</span>
-                            <h3>What Needs Fixing</h3>
-                        </div>
-
-                        {% for risk in report.risks_opportunities.top_risks[:2] %}
-                        <div class="assessment-item">
-                            <h4>{{ risk.title }}</h4>
-                            <p class="assessment-item__meta">Severity: {{ risk.severity }}</p>
-                            <p class="assessment-item__impact">{{ risk.impact }}</p>
-                        </div>
-                        {% endfor %}
+                    {% for strength in report.strategic_assessment.whats_working %}
+                    <div class="assessment-item">
+                        <h4>{{ strength.title }}</h4>
+                        <p class="assessment-item__impact">{{ strength.description }}</p>
                     </div>
+                    {% endfor %}
+                </div>
+
+                <div class="assessment-col assessment-col--weaknesses">
+                    <div class="col-header">
+                        <span class="col-header__icon">⚠</span>
+                        <h3>What Needs Fixing</h3>
+                    </div>
+
+                    {% for issue in report.strategic_assessment.what_needs_fixing %}
+                    <div class="assessment-item">
+                        <h4>{{ issue.title }}</h4>
+                        <p class="assessment-item__meta">Severity: {{ issue.severity }}</p>
+                        <p class="assessment-item__impact">{{ issue.impact }}</p>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
+        </div>
 
-            <!-- Strategic Insights Group -->
-            <div class="section-group">
-                <!-- V3: Strategic Recommendations - Option B (inline format) -->
-                <div class="strat-rec-box">
-                    <h3>Strategic Recommendations</h3>
-                    <p><strong>{{ report.executive_summary.recommendation }}:</strong> {{
-                        report.executive_summary.headline }}</p>
-                </div>
+        <!-- Strategic Insights Group -->
+        <div class="section-group">
+            <div class="strat-rec-box">
+                <h3>Strategic Recommendations</h3>
+                <p><strong>{{ report.strategic_assessment.strategic_recommendations.tier }}:</strong> {{ report.strategic_assessment.strategic_recommendations.context }}</p>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- ================= PAGE 4: KEY RISKS & OPPORTUNITIES ================= -->
     <div class="page">
